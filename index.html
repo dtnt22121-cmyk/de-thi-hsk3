@@ -1,1 +1,434 @@
 
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>准考证 · Ôn tập tổng hợp HSK3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#173B3A; --teal:#1F7A6C; --teal-2:#2A9D8F; --paper:#FBF7ED; --paper-line:#E4DCC8;
+    --seal:#C0392B; --seal-dark:#8E2A1E; --gold:#D4A017; --green:#3E8E5A;
+    --shadow:0 10px 28px rgba(23,59,58,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;min-height:100vh;
+    background:radial-gradient(circle at 15% 8%, rgba(212,160,23,0.10), transparent 40%),
+               radial-gradient(circle at 90% 85%, rgba(31,122,108,0.12), transparent 45%), var(--paper);
+    font-family:'Nunito',sans-serif; color:var(--ink); padding-bottom:28px;}
+  h1,h2,h3{font-family:'Baloo 2',sans-serif;}
+  .zh-word{font-family:'Noto Sans SC',sans-serif; font-weight:700;}
+  .stamp-text{font-family:'Ma Shan Zheng',cursive;}
+  .pinyin-mini{display:block;font-size:11.5px;color:#8a9695;font-weight:600;margin-top:1px;font-family:'Nunito';}
+  .pinyin-line{font-size:13px;color:#7a8a89;text-align:center;margin-bottom:8px;font-style:italic;}
+
+  .ticket{margin:16px 14px 10px; padding:16px 18px;
+    background:linear-gradient(135deg,var(--teal),var(--teal-2)); border-radius:16px; color:#fff;
+    box-shadow:var(--shadow); position:relative; overflow:hidden;}
+  .ticket::after{content:'';position:absolute;right:-30px;top:-30px;width:120px;height:120px;
+    border-radius:50%;background:rgba(255,255,255,0.08);}
+  .ticket .kicker{font-size:12px;letter-spacing:2px;opacity:.85;text-transform:uppercase;}
+  .ticket h1{margin:2px 0 0;font-size:20px;}
+  .ticket .sub{font-size:13px;opacity:.9;margin-top:4px;}
+
+  .screen{display:none;padding:0 14px;}
+  .screen.active{display:block;}
+  .card{background:#fff;border-radius:16px;padding:16px;box-shadow:var(--shadow);
+    border:1px solid var(--paper-line);margin-bottom:14px;}
+
+  .path-btn{display:flex;align-items:center;gap:12px;padding:16px;border-radius:14px;
+    border:2px solid var(--paper-line);background:#fffdf7;cursor:pointer;width:100%;text-align:left;
+    margin-bottom:12px;}
+  .path-btn .ic{font-size:30px;}
+  .path-btn .tt{font-family:'Baloo 2';font-size:16px;color:var(--ink);}
+  .path-btn .dd{font-size:12.5px;color:#7a8a89;margin-top:2px;}
+  .path-btn.teal{border-color:var(--teal-2);}
+
+  .student-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .student-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 8px;
+    border-radius:14px;border:2px solid var(--paper-line);background:#fffdf7;cursor:pointer;
+    font-family:'Baloo 2';font-size:16px;color:var(--ink);}
+  .student-btn .avatar{font-size:32px;}
+  .teacher-link{margin-top:4px;text-align:center;font-size:13px;color:var(--teal);
+    text-decoration:underline;cursor:pointer;}
+  .back-link{font-size:13px;color:var(--teal);text-decoration:underline;cursor:pointer;
+    display:inline-block;margin-bottom:10px;}
+
+  .tabbar{display:flex;overflow-x:auto;gap:6px;padding:10px 0 12px;margin:0 -14px;padding-left:14px;padding-right:14px;}
+  .tab{flex:0 0 auto;padding:8px 12px;border-radius:20px;border:2px solid var(--paper-line);
+    background:#fffdf7;font-size:12.5px;font-weight:800;color:var(--ink);cursor:pointer;
+    display:flex;align-items:center;gap:5px;white-space:nowrap;}
+  .tab.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+  .tab.done::after{content:'✓';color:var(--green);font-weight:900;}
+  .tab.active.done::after{color:#d7ffe6;}
+
+  .sec-title{font-size:17px;margin:2px 0 4px;}
+  .sec-sub{font-size:13px;color:#6d7c7b;margin-bottom:12px;}
+  .item-count{font-size:12px;color:#8a9695;font-weight:700;margin-bottom:8px;}
+
+  .q-block{border-bottom:1px solid var(--paper-line);padding:14px 0;}
+  .q-block:last-child{border-bottom:none;}
+  .q-num{display:inline-block;font-size:11px;font-weight:800;color:var(--teal);
+    background:rgba(31,122,108,.1);padding:2px 9px;border-radius:10px;margin-bottom:8px;}
+  .q-display-emoji{font-size:48px;text-align:center;margin:4px 0 10px;}
+  .q-display-hanzi{font-size:24px;text-align:center;margin:4px 0 2px;}
+  .speak-btn{border:none;background:var(--teal);color:#fff;width:32px;height:32px;border-radius:50%;
+    font-size:14px;cursor:pointer;margin-left:6px;}
+  .speak-btn.big{width:56px;height:56px;font-size:22px;display:block;margin:6px auto 4px;}
+  .q-prompt{font-size:15px;font-weight:700;margin-bottom:10px;text-align:center;}
+  .q-prompt.left{text-align:left;}
+  .options-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .opt-btn{text-align:left;padding:9px 11px;border-radius:11px;border:2px solid var(--paper-line);
+    background:#fffdf7;font-size:14px;cursor:pointer;color:var(--ink);font-family:'Nunito';}
+  .opt-btn.selected{border-color:var(--gold);background:#FFF6DF;}
+  .opt-btn.correct{border-color:var(--green);background:#E9F7EE;}
+  .opt-btn.wrong{border-color:var(--seal);background:#FBEAE8;}
+  .fb-note{font-size:12.5px;margin-top:6px;color:var(--seal);}
+  .fb-note.ok{color:var(--green);}
+  .reveal-box{margin-top:8px;font-size:13px;background:#F7F1E1;border-radius:8px;padding:8px 10px;}
+
+  .dialog-box{background:#F7F1E1;border-radius:12px;padding:12px 14px;margin-bottom:10px;font-size:15px;}
+  .dialog-a{color:var(--teal);font-weight:800;}
+
+  .para-box{font-size:16px;line-height:2.1;background:#FFFDF7;border:1px solid var(--paper-line);
+    border-radius:12px;padding:14px;margin-bottom:6px;}
+  .blank-slot{display:inline-block;min-width:44px;padding:2px 8px;border-bottom:2px solid var(--teal);
+    text-align:center;font-family:'Noto Sans SC';font-weight:700;color:var(--teal);cursor:pointer;}
+  .blank-slot.empty{color:#c7bfa8;}
+  .wordbank{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .wb-chip{padding:7px 12px;border-radius:10px;background:#fffdf7;border:2px solid var(--paper-line);
+    font-family:'Noto Sans SC';font-size:14px;cursor:pointer;text-align:center;line-height:1.3;}
+  .wb-chip.used{opacity:.3;pointer-events:none;}
+
+  .passage{background:#FFFDF7;border:1px solid var(--paper-line);border-radius:12px;padding:14px;
+    font-size:16px;line-height:1.9;margin-bottom:4px;font-family:'Noto Sans SC';}
+  .toggle-link{font-size:12.5px;color:var(--teal);text-decoration:underline;cursor:pointer;
+    display:inline-block;margin-bottom:12px;}
+
+  .match-cols{display:flex;gap:10px;}
+  .match-col{flex:1;display:flex;flex-direction:column;gap:8px;}
+  .match-item{padding:9px 8px;border-radius:10px;border:2px solid var(--paper-line);background:#fffdf7;
+    font-size:13.5px;text-align:center;cursor:pointer;}
+  .match-item.zh{font-family:'Noto Sans SC';font-weight:700;font-size:16px;}
+  .match-item.sel{border-color:var(--gold);background:#FFF6DF;}
+  .match-item.matched{border-color:var(--green);background:#E9F7EE;pointer-events:none;opacity:.7;}
+  .match-item.wrong{border-color:var(--seal);background:#FBEAE8;}
+
+  .btn{padding:13px;border-radius:12px;border:none;font-family:'Baloo 2';font-size:15px;cursor:pointer;}
+  .btn-primary{background:var(--teal);color:#fff;width:100%;margin-top:6px;}
+  .btn-ghost{background:#fff;color:var(--teal);border:2px solid var(--teal);width:100%;margin-top:8px;}
+
+  .result-wrap{text-align:center;}
+  .stamp{width:150px;height:150px;margin:10px auto 6px;border-radius:50%;border:6px solid var(--seal);
+    color:var(--seal);display:flex;flex-direction:column;align-items:center;justify-content:center;
+    transform:rotate(-8deg);}
+  .stamp .big{font-size:30px;font-weight:900;font-family:'Baloo 2';}
+  .stamp .zh-stamp{font-family:'Ma Shan Zheng';font-size:18px;margin-top:2px;}
+  .sec-summary-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;
+    border-bottom:1px solid var(--paper-line);font-size:14px;}
+  .sec-summary-row b{color:var(--teal);}
+
+  .teach-row{background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:10px;box-shadow:var(--shadow);
+    border:1px solid var(--paper-line);}
+  .teach-top{display:flex;justify-content:space-between;align-items:center;}
+  .teach-name{font-family:'Baloo 2';font-size:16px;}
+  .teach-meta{font-size:12px;color:#7a8a89;}
+  .teach-score{font-family:'Baloo 2';font-size:20px;color:var(--teal);}
+  .teach-detail{font-size:12px;color:#7a8a89;margin-top:6px;}
+  .empty{text-align:center;color:#8a9695;padding:30px 10px;font-size:14px;}
+
+  .study-tabbar{display:flex;gap:8px;margin-bottom:14px;}
+  .study-tab{flex:1;padding:10px;border-radius:12px;border:2px solid var(--paper-line);background:#fffdf7;
+    font-family:'Baloo 2';font-size:14px;text-align:center;cursor:pointer;color:var(--ink);}
+  .study-tab.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+  .gram-card{border:1px solid var(--paper-line);border-radius:12px;padding:12px 14px;margin-bottom:10px;
+    background:#fffdf7;}
+  .gram-num{font-size:11px;font-weight:800;color:#fff;background:var(--teal);display:inline-block;
+    padding:2px 8px;border-radius:10px;margin-bottom:6px;}
+  .gram-struct{font-family:'Baloo 2';font-size:15px;margin-bottom:4px;}
+  .gram-usage{font-size:13px;color:var(--ink);background:#F7F1E1;border-radius:8px;padding:7px 9px;margin:6px 0;line-height:1.5;}
+  .gram-usage b{color:var(--teal);}
+  .gram-example{font-family:'Noto Sans SC';font-size:16px;font-weight:700;margin-top:6px;}
+  .gram-pinyin{font-size:12.5px;color:#7a8a89;font-style:italic;}
+  .gram-meaning{font-size:13.5px;color:var(--ink);margin-top:2px;}
+
+  .lesson-accordion{border:1px solid var(--paper-line);border-radius:12px;margin-bottom:8px;overflow:hidden;}
+  .lesson-head{padding:12px 14px;background:#fffdf7;cursor:pointer;display:flex;justify-content:space-between;
+    align-items:center;font-family:'Baloo 2';font-size:14.5px;}
+  .lesson-head .arrow{transition:transform .2s;font-size:12px;color:var(--teal);}
+  .lesson-head.open .arrow{transform:rotate(90deg);}
+  .lesson-body{display:none;padding:6px 14px 12px;}
+  .lesson-body.open{display:block;}
+  .vocab-card{padding:9px 0;border-bottom:1px solid var(--paper-line);}
+  .vocab-card:last-child{border-bottom:none;}
+  .vocab-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  .vocab-zh{font-family:'Noto Sans SC';font-weight:700;font-size:16.5px;}
+  .vocab-py{font-size:12px;color:#8a9695;font-style:italic;}
+  .vocab-vi{font-size:13px;color:var(--ink);margin-left:auto;text-align:right;}
+  .vocab-example{font-size:12.5px;color:#5f716f;background:#F7F1E1;border-radius:7px;padding:6px 8px;margin-top:5px;}
+  .vocab-example .ex-zh{font-family:'Noto Sans SC';font-weight:600;color:var(--ink);}
+  .vocab-example .ex-py{font-style:italic;}
+</style>
+</head>
+<body>
+
+<div class="ticket">
+  <div class="kicker">准考证 · Phiếu ôn tập</div>
+  <h1>HSK3 2.0 · Ôn tập tổng hợp 20 bài</h1>
+  <div class="sub" id="ticketSub">Chọn một mục để bắt đầu</div>
+</div>
+
+<div class="screen active" id="screen-home">
+  <div class="card">
+    <button class="path-btn teal" id="goStudy">
+      <span class="ic">📘</span>
+      <span><span class="tt">Ôn tập kiến thức</span><br><span class="dd">Xem lại từ vựng &amp; ngữ pháp trước khi làm bài — cô dạy hoặc học sinh tự xem ở nhà</span></span>
+    </button>
+    <button class="path-btn" id="goExercise">
+      <span class="ic">📝</span>
+      <span><span class="tt">Làm bài tập</span><br><span class="dd">Chọn tên rồi làm 8 dạng bài tự chấm điểm</span></span>
+    </button>
+  </div>
+  <div class="card" id="studentPickerCard" style="display:none;">
+    <div class="student-grid" id="studentGrid"></div>
+  </div>
+  <div class="teacher-link" id="teacherLink">📋 Cách nộp bài hoạt động ra sao?</div>
+</div>
+
+<div class="screen" id="screen-study">
+  <span class="back-link" id="studyBack">← Quay lại</span>
+  <div class="study-tabbar">
+    <div class="study-tab active" id="studyTabGram">📐 Ngữ pháp</div>
+    <div class="study-tab" id="studyTabVocab">📚 Từ vựng theo bài</div>
+  </div>
+  <div class="card" id="studyCard"></div>
+</div>
+
+<div class="screen" id="screen-quiz">
+  <div class="tabbar" id="tabbar"></div>
+  <div class="card" id="secCard"></div>
+</div>
+
+<div class="screen" id="screen-result">
+  <div class="card result-wrap">
+    <div class="stamp"><div class="big" id="stampScore">0/0</div><div class="zh-stamp stamp-text">阅卷完成</div></div>
+    <h3 id="resultName"></h3>
+    <div id="sectionSummary"></div>
+    <button class="btn btn-primary" id="saveBtn">📩 Nộp bài cho cô giáo</button>
+    <button class="btn btn-ghost" id="copyBtn">📋 Sao chép kết quả (dự phòng)</button>
+    <textarea id="copyFallback" style="width:100%;margin-top:8px;display:none;font-size:12px;padding:8px;border-radius:8px;border:1px solid var(--paper-line);" rows="6" readonly></textarea>
+    <button class="btn btn-ghost" id="homeBtn">Về trang chính</button>
+  </div>
+</div>
+
+<div class="screen" id="screen-teacher">
+  <div class="card">
+    <h3 style="margin-top:0">📋 Cách nộp bài hoạt động ra sao?</h3>
+    <div class="sec-sub" style="margin-bottom:12px;">Kết quả được gửi tự động vào một Google Form/Sheet của cô — không cần copy-paste thủ công.</div>
+    <div class="gram-usage" style="margin-bottom:10px;">1. Học sinh làm xong 8 phần, bấm <b>"Xem kết quả tổng"</b>.</div>
+    <div class="gram-usage" style="margin-bottom:10px;">2. Ở màn hình kết quả, bấm nút <b>"📩 Nộp bài cho cô giáo"</b> — điểm tổng, điểm từng phần và chi tiết câu sai sẽ tự động gửi thẳng vào Google Sheet của cô, không cần mở app nào khác.</div>
+    <div class="gram-usage" style="margin-bottom:10px;">3. Cô mở Google Form → tab "Câu trả lời" (Responses) → bấm biểu tượng Sheets xanh lá để xem toàn bộ kết quả cả lớp dạng bảng.</div>
+    <div class="gram-usage" style="margin-bottom:10px;">4. Nút <b>"📋 Sao chép kết quả"</b> vẫn còn để dự phòng, phòng khi mạng yếu hoặc form gửi không thành công — lúc đó học sinh có thể copy rồi gửi tay qua Zalo.</div>
+    <button class="btn btn-ghost" id="teacherBack">← Quay lại</button>
+  </div>
+</div>
+
+<script>
+// ---------------- PINYIN DICTIONARY (for exercise section words/phrases) ----------------
+const PY = {
+  "熊猫":"xióngmāo","自行车":"zìxíngchē","眼镜":"yǎnjìng","公园":"gōngyuán","雨伞":"yǔsǎn","银行":"yínháng",
+  "帽子":"màozi","鼻子":"bízi","耳朵":"ěrduo","裙子":"qúnzi","裤子":"kùzi","鞋":"xié","香蕉":"xiāngjiāo",
+  "苹果":"píngguǒ","面包":"miànbāo","啤酒":"píjiǔ","图书馆":"túshūguǎn","电梯":"diàntī","行李箱":"xínglixiāng",
+  "书包":"shūbāo","瓶子":"píngzi","黑板":"hēibǎn","伞":"sǎn","地图":"dìtú","词典":"cídiǎn",
+  "如果":"rúguǒ","因为":"yīnwèi","所以":"suǒyǐ","但是":"dànshì","虽然":"suīrán","还是":"háishi","以外":"yǐwài",
+  "一样":"yíyàng","极了":"jíle","左右":"zuǒyòu","极":"jí","越":"yuè","才":"cái","就":"jiù","也":"yě","还":"hái",
+  "而且":"érqiě","只有":"zhǐyǒu","只要":"zhǐyào",
+  "着急":"zháojí","感兴趣":"gǎn xìngqù","结婚":"jiéhūn","打扫":"dǎsǎo","提高":"tígāo","解决":"jiějué","根据":"gēnjù",
+  "小刚周末喜欢做什么？":"Xiǎogāng zhōumò xǐhuan zuò shénme?",
+  "他们为什么带地图？":"Tāmen wèishénme dài dìtú?",
+  "他们准备了什么？":"Tāmen zhǔnbèi le shénme?",
+  "爬山":"páshān","游泳":"yóuyǒng","打篮球":"dǎ lánqiú","看电影":"kàn diànyǐng",
+  "怕迷路":"pà mílù","怕忘记":"pà wàngjì","怕晚了":"pà wǎn le","怕累":"pà lèi",
+  "面包和饮料":"miànbāo hé yǐnliào","词典和笔":"cídiǎn hé bǐ","伞和帽子":"sǎn hé màozi","照相机和护照":"zhàoxiàngjī hé hùzhào",
+  "打算":"dǎsuàn","借":"jiè","复习":"fùxí","终于":"zhōngyú",
+  "邻居":"línjū","决定":"juédìng","相信":"xiāngxìn","机会":"jīhuì","健康":"jiànkāng","习惯":"xíguàn",
+  "重要":"zhòngyào","方便":"fāngbiàn",
+  "你怎么突然找不到眼镜了？":"Nǐ zěnme tūrán zhǎo bu dào yǎnjìng le?",
+  "周末你有什么打算？":"Zhōumò nǐ yǒu shénme dǎsuàn?",
+  "麻烦你把行李箱拿过来，好吗？":"Máfan nǐ bǎ xínglixiāng ná guòlai, hǎo ma?",
+  "你觉得这次比赛结果怎么样？":"Nǐ juéde zhè cì bǐsài jiéguǒ zěnmeyàng?",
+  "我也不知道，刚才还在这儿的。":"Wǒ yě bù zhīdào, gāngcái hái zài zhèr de.",
+  "谢谢你的帮忙。":"Xièxie nǐ de bāngmáng.",
+  "我们一起去爬山吧。":"Wǒmen yìqǐ qù páshān ba.",
+  "那家饭馆很好吃。":"Nà jiā fànguǎn hěn hǎochī.",
+  "我打算去图书馆复习。":"Wǒ dǎsuàn qù túshūguǎn fùxí.",
+  "我今天很着急。":"Wǒ jīntiān hěn zháojí.",
+  "他的腿有点儿疼。":"Tā de tuǐ yǒudiǎnr téng.",
+  "这件衣服很便宜。":"Zhè jiàn yīfu hěn piányi.",
+  "好的，马上就来。":"Hǎo de, mǎshàng jiù lái.",
+  "我不喜欢旅行。":"Wǒ bù xǐhuan lǚxíng.",
+  "护照已经过期了。":"Hùzhào yǐjīng guòqī le.",
+  "飞机几点起飞？":"Fēijī jǐ diǎn qǐfēi?",
+  "我们都很满意。":"Wǒmen dōu hěn mǎnyì.",
+  "空调坏了。":"Kōngtiáo huài le.",
+  "他正在洗澡。":"Tā zhèngzài xǐzǎo.",
+  "地铁站在哪儿？":"Dìtiě zhàn zài nǎr?",
+  "两点四十五":"liǎng diǎn sìshíwǔ","三点十五":"sān diǎn shíwǔ","两点十五":"liǎng diǎn shíwǔ","三点四十五":"sān diǎn sìshíwǔ",
+  "五年多":"wǔ nián duō","五个月":"wǔ ge yuè","半年":"bàn nián","十五年":"shíwǔ nián",
+  "关空调":"guān kōngtiáo","开空调":"kāi kōngtiáo","开窗户":"kāi chuānghu","关灯":"guān dēng",
+  "做饭":"zuò fàn","看书":"kàn shū","睡觉":"shuìjiào",
+};
+function py(text){ return PY[text] || ''; }
+
+// ---------------- STUDY DATA ----------------
+const GRAMMAR = [
+ {struct:"把字句 (Câu chữ 「把」): A + 把 + B + động từ + ...",
+  usage:"<b>Ý nghĩa:</b> nhấn mạnh A xử lý/tác động lên B như thế nào, kết quả ra sao. <b>Cách dùng:</b> B phải là sự vật cụ thể, xác định (không nói chung chung); động từ sau 把 luôn phải có thêm bổ ngữ/trợ từ (như 了, 在..., 到...) đi kèm, không được đứng một mình.",
+  example:"我把书放在桌子上了。", pinyin:"Wǒ bǎ shū fàng zài zhuōzi shàng le.", meaning:"Tôi đã đặt quyển sách lên bàn."},
+ {struct:"被字句 (Câu bị động): A + 被 + B + động từ + ...",
+  usage:"<b>Ý nghĩa:</b> A là đối tượng chịu tác động từ hành động của B, thường mang sắc thái không mong muốn/tiêu cực. <b>Cách dùng:</b> có thể lược bỏ B (被+động từ) nếu không cần nói rõ ai gây ra hành động.",
+  example:"我的照相机被弟弟弄坏了。", pinyin:"Wǒ de zhàoxiàngjī bèi dìdi nòng huài le.", meaning:"Máy ảnh của tôi bị em trai làm hỏng rồi."},
+ {struct:"So sánh hơn: A + 比 + B + tính từ",
+  usage:"<b>Ý nghĩa:</b> so sánh hai đối tượng, A hơn B về một đặc điểm. <b>Cách dùng:</b> có thể thêm 一点儿 (hơn một chút)/得多/多了 (hơn nhiều) sau tính từ để nói rõ mức độ chênh lệch.",
+  example:"他比我高。", pinyin:"Tā bǐ wǒ gāo.", meaning:"Anh ấy cao hơn tôi."},
+ {struct:"So sánh bằng: A + 跟 + B + 一样 (+tính từ)",
+  usage:"<b>Ý nghĩa:</b> A và B ngang nhau về một đặc điểm nào đó. <b>Cách dùng:</b> có thể thêm tính từ sau 一样 để nói rõ đang so sánh về mặt gì (ví dụ 一样高, 一样好).",
+  example:"她的书跟我的一样。", pinyin:"Tā de shū gēn wǒ de yíyàng.", meaning:"Sách của cô ấy giống sách của tôi."},
+ {struct:"越来越 + tính từ / động từ tâm lý",
+  usage:"<b>Ý nghĩa:</b> diễn tả một xu hướng thay đổi tăng dần theo thời gian. <b>Cách dùng:</b> chỉ nói về SỰ THAY ĐỔI của một chủ thể theo thời gian, không dùng để so sánh với người/vật khác.",
+  example:"天气越来越冷了。", pinyin:"Tiānqì yuè lái yuè lěng le.", meaning:"Thời tiết ngày càng lạnh."},
+ {struct:"越 A 越 B: càng A càng B",
+  usage:"<b>Ý nghĩa:</b> A và B tăng/giảm theo tỉ lệ thuận với nhau. <b>Cách dùng:</b> A và B thường là động từ hoặc tính từ có liên quan logic với nhau.",
+  example:"越学越有意思。", pinyin:"Yuè xué yuè yǒu yìsi.", meaning:"Càng học càng thấy thú vị."},
+ {struct:"又 A 又 B: vừa A vừa B",
+  usage:"<b>Ý nghĩa:</b> liệt kê hai đặc điểm/tính chất cùng tồn tại trên một chủ thể. <b>Cách dùng:</b> A, B thường là tính từ hoặc động từ ngắn, mang sắc thái trung tính hoặc tích cực.",
+  example:"他又聪明又努力。", pinyin:"Tā yòu cōngming yòu nǔlì.", meaning:"Anh ấy vừa thông minh vừa chăm chỉ."},
+ {struct:"一边 A 一边 B: vừa A vừa B (cùng lúc)",
+  usage:"<b>Ý nghĩa:</b> hai hành động xảy ra đồng thời do cùng một người thực hiện. <b>Cách dùng:</b> A, B là động từ, chủ ngữ của cả câu chỉ có một.",
+  example:"他一边吃饭一边看电视。", pinyin:"Tā yìbiān chīfàn yìbiān kàn diànshì.", meaning:"Anh ấy vừa ăn cơm vừa xem TV."},
+ {struct:"如果...(的话)，就...: nếu... thì...",
+  usage:"<b>Ý nghĩa:</b> câu điều kiện giả định — nêu điều kiện ở vế trước, kết quả sẽ xảy ra ở vế sau nếu điều kiện đúng. <b>Cách dùng:</b> 的话 có thể bỏ, 就 thường đứng trước động từ/tính từ ở vế kết quả.",
+  example:"如果明天下雨，我们就不去了。", pinyin:"Rúguǒ míngtiān xiàyǔ, wǒmen jiù bú qù le.", meaning:"Nếu ngày mai trời mưa thì chúng ta sẽ không đi."},
+ {struct:"因为...，所以...: vì... nên...",
+  usage:"<b>Ý nghĩa:</b> nêu nguyên nhân (因为) và kết quả (所以). <b>Cách dùng:</b> có thể lược bỏ một trong hai từ khi ngữ cảnh đã rõ ràng.",
+  example:"因为下雨，所以我们没去公园。", pinyin:"Yīnwèi xiàyǔ, suǒyǐ wǒmen méi qù gōngyuán.", meaning:"Vì trời mưa nên chúng tôi không đi công viên."},
+ {struct:"除了...以外，都/还/也...: ngoài... ra, còn/đều...",
+  usage:"<b>Ý nghĩa:</b> nêu một trường hợp ngoại lệ hoặc bổ sung. <b>Cách dùng:</b> theo sau là 都 = \"trừ A ra, còn lại đều...\"; theo sau là 还/也 = \"ngoài A ra, còn có thêm...\".",
+  example:"除了游泳以外，他还喜欢爬山。", pinyin:"Chúle yóuyǒng yǐwài, tā hái xǐhuan páshān.", meaning:"Ngoài bơi lội ra, anh ấy còn thích leo núi."},
+ {struct:"只要...，就...: chỉ cần... là...",
+  usage:"<b>Ý nghĩa:</b> nêu điều kiện đủ, dễ đáp ứng — chỉ cần điều kiện đó xảy ra là kết quả chắc chắn theo sau. <b>Cách dùng:</b> nhấn mạnh điều kiện tối thiểu cần có.",
+  example:"只要努力，就能成功。", pinyin:"Zhǐyào nǔlì, jiù néng chénggōng.", meaning:"Chỉ cần nỗ lực là có thể thành công."},
+ {struct:"只有...，才...: chỉ khi... mới...",
+  usage:"<b>Ý nghĩa:</b> nêu điều kiện cần duy nhất — bắt buộc phải có điều kiện đó thì kết quả mới xảy ra, không có cách nào khác. <b>Cách dùng:</b> mang tính chặt chẽ hơn 只要...就, thường dùng khi chỉ có một điều kiện duy nhất dẫn tới kết quả.",
+  example:"只有你说实话，我才能帮你。", pinyin:"Zhǐyǒu nǐ shuō shíhuà, wǒ cái néng bāng nǐ.", meaning:"Chỉ khi bạn nói thật thì tôi mới có thể giúp bạn."},
+ {struct:"不但...，而且...: không những... mà còn...",
+  usage:"<b>Ý nghĩa:</b> nhấn mạnh mức độ tăng tiến, vế sau bổ sung ý mạnh hơn vế trước. <b>Cách dùng:</b> nếu chủ ngữ hai vế khác nhau thì chủ ngữ đặt trước 不但; nếu giống nhau thì đặt trước cả câu.",
+  example:"他不但聪明，而且很努力。", pinyin:"Tā búdàn cōngming, érqiě hěn nǔlì.", meaning:"Anh ấy không những thông minh mà còn rất chăm chỉ."},
+ {struct:"「才」và「就」chỉ thời gian",
+  usage:"<b>Ý nghĩa:</b> 才 = việc xảy ra muộn/khó hơn mong đợi (mang sắc thái miễn cưỡng); 就 = việc xảy ra sớm/dễ hơn mong đợi. <b>Cách dùng:</b> so sánh cùng một mốc thời gian nhưng thể hiện thái độ khác nhau của người nói.",
+  example:"他八点才来，我七点就来了。", pinyin:"Tā bā diǎn cái lái, wǒ qī diǎn jiù lái le.", meaning:"Mãi 8 giờ anh ấy mới đến, còn tôi mới 7 giờ đã đến rồi."},
+ {struct:"Bổ ngữ khả năng: động từ + 得/不 + bổ ngữ",
+  usage:"<b>Ý nghĩa:</b> diễn tả khả năng có đạt được kết quả của hành động hay không. <b>Cách dùng:</b> 得 = có thể làm được; 不 = không thể làm được. Ví dụ 听得懂/听不懂.",
+  example:"我听得懂。 / 我听不懂。", pinyin:"Wǒ tīng de dǒng. / Wǒ tīng bu dǒng.", meaning:"Tôi nghe hiểu được. / Tôi không nghe hiểu được."},
+ {struct:"Bổ ngữ mức độ 「极了」: ...cực kỳ",
+  usage:"<b>Ý nghĩa:</b> nhấn mạnh mức độ rất cao của tính từ, mang sắc thái cảm thán. <b>Cách dùng:</b> đặt ngay sau tính từ (tính từ + 极了), thường dùng trong khẩu ngữ.",
+  example:"这个电影好看极了！", pinyin:"Zhège diànyǐng hǎokàn jíle!", meaning:"Bộ phim này hay cực kỳ!"},
+ {struct:"Câu hỏi phản vấn 「能...吗」",
+  usage:"<b>Ý nghĩa:</b> hình thức là câu hỏi nhưng thực chất nhằm khẳng định mạnh mẽ theo hướng ngược lại với điều được hỏi (không thực sự hỏi thông tin). <b>Cách dùng:</b> thường dùng khi muốn nhấn mạnh, thể hiện thái độ chắc chắn.",
+  example:"这么难的问题他能不知道吗？", pinyin:"Zhème nán de wèntí tā néng bù zhīdào ma?", meaning:"Câu hỏi khó như vậy làm sao anh ấy có thể không biết chứ?"},
+];
+
+const VOCAB_LESSONS = [
+ {n:1, title:"周末你有什么打算？ · Cuối tuần anh dự định làm gì?", words:[
+   ["周末","zhōumò","cuối tuần","周末我打算去爬山。","Zhōumò wǒ dǎsuàn qù páshān.","Cuối tuần tôi dự định đi leo núi."],
+   ["打算","dǎsuàn","dự định","你周末有什么打算？","Nǐ zhōumò yǒu shénme dǎsuàn?","Cuối tuần bạn có dự định gì?"],
+   ["干","gàn","làm","你在干什么？","Nǐ zài gàn shénme?","Bạn đang làm gì vậy?"],
+   ["跟","gēn","cùng, với, theo","我跟妈妈去买东西。","Wǒ gēn māma qù mǎi dōngxi.","Tôi cùng mẹ đi mua đồ."],
+   ["一直","yìzhí","luôn, mãi","他一直在学习中文。","Tā yìzhí zài xuéxí Zhōngwén.","Anh ấy luôn học tiếng Trung."],
+   ["游戏","yóuxì","trò chơi","弟弟喜欢玩游戏。","Dìdi xǐhuan wán yóuxì.","Em trai thích chơi trò chơi."],
+   ["作业","zuòyè","bài tập","我还没做完作业。","Wǒ hái méi zuò wán zuòyè.","Tôi vẫn chưa làm xong bài tập."],
+   ["着急","zháojí","lo lắng, sốt ruột","别着急，慢慢来。","Bié zháojí, mànmàn lái.","Đừng lo lắng, từ từ thôi."],
+   ["复习","fùxí","ôn tập","考试前要好好复习。","Kǎoshì qián yào hǎohǎo fùxí.","Trước khi thi phải ôn tập thật kỹ."],
+   ["南方","nánfāng","miền Nam","他是南方人。","Tā shì nánfāng rén.","Anh ấy là người miền Nam."],
+   ["北方","běifāng","miền Bắc","北方的冬天很冷。","Běifāng de dōngtiān hěn lěng.","Mùa đông miền Bắc rất lạnh."],
+   ["面包","miànbāo","bánh mì","早上我吃面包。","Zǎoshang wǒ chī miànbāo.","Buổi sáng tôi ăn bánh mì."],
+   ["带","dài","mang theo","别忘了带雨伞。","Bié wàngle dài yǔsǎn.","Đừng quên mang theo ô."],
+   ["地图","dìtú","bản đồ","我们看地图找路。","Wǒmen kàn dìtú zhǎo lù.","Chúng tôi xem bản đồ để tìm đường."],
+   ["搬","bān","chuyển, dọn nhà","他们下个月要搬家。","Tāmen xià ge yuè yào bānjiā.","Tháng sau họ sẽ chuyển nhà."]]},
+ {n:2, title:"他什么时候回来？ · Khi nào anh ấy quay về?", words:[
+   ["腿","tuǐ","chân, đùi","我的腿有点儿疼。","Wǒ de tuǐ yǒudiǎnr téng.","Chân tôi hơi đau."],
+   ["疼","téng","đau","他的头很疼。","Tā de tóu hěn téng.","Đầu anh ấy rất đau."],
+   ["脚","jiǎo","bàn chân","我的脚很大。","Wǒ de jiǎo hěn dà.","Bàn chân tôi rất to."],
+   ["树","shù","cây","公园里有很多树。","Gōngyuán lǐ yǒu hěn duō shù.","Trong công viên có rất nhiều cây."],
+   ["容易","róngyì","dễ","这个问题很容易。","Zhège wèntí hěn róngyì.","Vấn đề này rất dễ."],
+   ["难","nán","khó","汉语语法有点儿难。","Hànyǔ yǔfǎ yǒudiǎnr nán.","Ngữ pháp tiếng Trung hơi khó."],
+   ["太太","tàitai","bà, phu nhân","王太太在家做饭。","Wáng tàitai zài jiā zuò fàn.","Bà Vương ở nhà nấu cơm."],
+   ["秘书","mìshū","thư ký","她是公司的秘书。","Tā shì gōngsī de mìshū.","Cô ấy là thư ký của công ty."],
+   ["经理","jīnglǐ","giám đốc","经理今天开会。","Jīnglǐ jīntiān kāihuì.","Hôm nay giám đốc họp."],
+   ["办公室","bàngōngshì","văn phòng","他在办公室工作。","Tā zài bàngōngshì gōngzuò.","Anh ấy làm việc ở văn phòng."],
+   ["俩","liǎ","hai người","我们俩是好朋友。","Wǒmen liǎ shì hǎo péngyou.","Hai chúng tôi là bạn thân."],
+   ["楼","lóu","tầng, tòa nhà","我家在五楼。","Wǒ jiā zài wǔ lóu.","Nhà tôi ở tầng năm."],
+   ["才","cái","mới (thì...)","他十点才来。","Tā shí diǎn cái lái.","Mãi 10 giờ anh ấy mới đến."],
+   ["把","bǎ","(giới từ 把)","请把门关上。","Qǐng bǎ mén guānshàng.","Xin hãy đóng cửa lại."],
+   ["伞","sǎn","cái ô, dù","下雨了，带伞吧。","Xiàyǔ le, dài sǎn ba.","Trời mưa rồi, mang ô theo đi."],
+   ["胖","pàng","béo, mập","他最近胖了。","Tā zuìjìn pàng le.","Dạo này anh ấy béo lên."],
+   ["其实","qíshí","thực ra","其实我不喜欢咖啡。","Qíshí wǒ bù xǐhuan kāfēi.","Thực ra tôi không thích cà phê."],
+   ["瘦","shòu","gầy","她比以前瘦了。","Tā bǐ yǐqián shòu le.","Cô ấy gầy hơn trước."],
+   ["周","zhōu","tuần","下周我们考试。","Xià zhōu wǒmen kǎoshì.","Tuần sau chúng tôi thi."]]},
+ {n:3, title:"桌子上放着很多饮料。 · Trên bàn có rất nhiều thức uống.", words:[
+   ["还是","háishi","hay là","你喝茶还是喝咖啡？","Nǐ hē chá háishi hē kāfēi?","Bạn uống trà hay uống cà phê?"],
+   ["爬山","páshān","leo núi","周末我们去爬山。","Zhōumò wǒmen qù páshān.","Cuối tuần chúng tôi đi leo núi."],
+   ["小心","xiǎoxīn","cẩn thận","过马路要小心。","Guò mǎlù yào xiǎoxīn.","Qua đường phải cẩn thận."],
+   ["余","yú","dư, thừa","这是余下的钱。","Zhè shì yú xià de qián.","Đây là số tiền còn dư."],
+   ["裤子","kùzi","quần","这条裤子很好看。","Zhè tiáo kùzi hěn hǎokàn.","Cái quần này rất đẹp."],
+   ["记得","jìde","nhớ","我记得他的名字。","Wǒ jìde tā de míngzi.","Tôi nhớ tên của anh ấy."],
+   ["村庄","cūnzhuāng","làng, thôn","这是一个安静的村庄。","Zhè shì yí gè ānjìng de cūnzhuāng.","Đây là một ngôi làng yên tĩnh."],
+   ["元","yuán","đồng (tiền)","这本书十元。","Zhè běn shū shí yuán.","Quyển sách này mười đồng."],
+   ["新鲜","xīnxiān","tươi mới","这些水果很新鲜。","Zhèxiē shuǐguǒ hěn xīnxiān.","Những trái cây này rất tươi."],
+   ["甜","tián","ngọt","这个西瓜很甜。","Zhège xīguā hěn tián.","Quả dưa hấu này rất ngọt."],
+   ["尺","chǐ","thước (đơn vị đo)","用尺量一下长度。","Yòng chǐ liáng yíxià chángdù.","Dùng thước đo thử chiều dài."],
+   ["放","fàng","đặt, để","把书放在桌子上。","Bǎ shū fàng zài zhuōzi shàng.","Đặt sách lên bàn."],
+   ["饮料","yǐnliào","đồ uống","桌子上有很多饮料。","Zhuōzi shàng yǒu hěn duō yǐnliào.","Trên bàn có rất nhiều đồ uống."],
+   ["或者","huòzhě","hoặc là","你喝水或者喝茶都可以。","Nǐ hē shuǐ huòzhě hē chá dōu kěyǐ.","Bạn uống nước hoặc uống trà đều được."],
+   ["舒服","shūfu","thoải mái, dễ chịu","这张床很舒服。","Zhè zhāng chuáng hěn shūfu.","Cái giường này rất thoải mái."],
+   ["花","huā","hoa","妈妈喜欢种花。","Māma xǐhuan zhòng huā.","Mẹ thích trồng hoa."],
+   ["绿","lǜ","xanh lá","树叶是绿色的。","Shùyè shì lǜsè de.","Lá cây có màu xanh lá."]]},
+ {n:4, title:"她总是笑着跟客人说话。 · Cô ấy luôn cười khi nói chuyện với khách.", words:[
+   ["比赛","bǐsài","cuộc thi","明天有一场比赛。","Míngtiān yǒu yì chǎng bǐsài.","Ngày mai có một cuộc thi."],
+   ["照片","zhàopiàn","ảnh chụp","这张照片很漂亮。","Zhè zhāng zhàopiàn hěn piàoliang.","Bức ảnh này rất đẹp."],
+   ["年级","niánjí","khối lớp","我弟弟上三年级。","Wǒ dìdi shàng sān niánjí.","Em trai tôi học lớp ba."],
+   ["又","yòu","lại (nhấn mạnh)","他又迟到了。","Tā yòu chídào le.","Anh ấy lại đến muộn rồi."],
+   ["聪明","cōngming","thông minh","这个孩子很聪明。","Zhège háizi hěn cōngming.","Đứa trẻ này rất thông minh."],
+   ["热情","rèqíng","nhiệt tình","老师对我们很热情。","Lǎoshī duì wǒmen hěn rèqíng.","Cô giáo rất nhiệt tình với chúng em."],
+   ["努力","nǔlì","nỗ lực","他学习很努力。","Tā xuéxí hěn nǔlì.","Anh ấy học rất chăm chỉ."],
+   ["总是","zǒngshì","luôn luôn","她总是笑着说话。","Tā zǒngshì xiàozhe shuōhuà.","Cô ấy luôn cười khi nói chuyện."],
+   ["回答","huídá","trả lời","请回答这个问题。","Qǐng huídá zhège wèntí.","Xin hãy trả lời câu hỏi này."],
+   ["站","zhàn","đứng / trạm","前面就是公交车站。","Qiánmiàn jiùshì gōngjiāo chēzhàn.","Phía trước là trạm xe buýt."],
+   ["饿","è","đói","我有点儿饿了。","Wǒ yǒudiǎnr è le.","Tôi hơi đói rồi."],
+   ["越","yuè","càng","雨越下越大。","Yǔ yuè xià yuè dà.","Mưa càng lúc càng to."],
+   ["事业","shìyè","sự nghiệp","他很关心自己的事业。","Tā hěn guānxīn zìjǐ de shìyè.","Anh ấy rất quan tâm đến sự nghiệp của mình."],
+   ["年轻","niánqīng","trẻ tuổi","她看起来很年轻。","Tā kàn qǐlai hěn niánqīng.","Cô ấy trông rất trẻ."],
+   ["认真","rènzhēn","nghiêm túc, chăm chỉ","他工作很认真。","Tā gōngzuò hěn rènzhēn.","Anh ấy làm việc rất nghiêm túc."],
+   ["客人","kèrén","khách","今天家里有客人。","Jīntiān jiā lǐ yǒu kèrén.","Hôm nay nhà có khách."]]},
+ {n:5, title:"我最近越来越胖了。 · Dạo này em ngày càng béo ra.", words:[
+   ["发烧","fāshāo","sốt","我昨天发烧了。","Wǒ zuótiān fāshāo le.","Hôm qua tôi bị sốt."],
+   ["为","wèi","vì","他为我们做了很多。","Tā wèi wǒmen zuò le hěn duō.","Anh ấy đã làm rất nhiều vì chúng tôi."],
+   ["照顾","zhàogù","chăm sóc","妈妈照顾生病的爷爷。","Māma zhàogù shēngbìng de yéye.","Mẹ chăm sóc ông đang bị bệnh."],
+   ["用","yòng","dùng","你可以用我的笔。","Nǐ kěyǐ yòng wǒ de bǐ.","Bạn có thể dùng bút của tôi."],
+   ["感冒","gǎnmào","cảm cúm","我感冒了，头疼。","Wǒ gǎnmào le, tóu téng.","Tôi bị cảm cúm, đau đầu."],
+   ["季节","jìjié","mùa","春天是我最喜欢的季节。","Chūntiān shì wǒ zuì xǐhuan de jìjié.","Mùa xuân là mùa tôi thích nhất."],
+   ["当然","dāngrán","đương nhiên","当然可以，没问题。","Dāngrán kěyǐ, méi wèntí.","Đương nhiên là được, không vấn đề gì."],
+   ["春天","chūntiān","mùa xuân","春天到了，花都开了。","Chūntiān dào le, huā dōu kāi le.","Mùa xuân đến rồi, hoa đều nở cả."],
+   ["单","dān","đơn, mỏng","天冷了，别穿太单。","Tiān lěng le, bié chuān tài dān.","Trời lạnh rồi, đừng mặc quá mỏng."],
+   ["夏天","xiàtiān","mùa hè","夏天很热。","Xiàtiān hěn rè.","Mùa hè rất nóng."],
+   ["裙子","qúnzi","váy","妹妹买了一条新裙子。","Mèimei mǎi le yì tiáo xīn qúnzi.","Em gái mua một cái váy mới."],
+   ["最近","zuìjìn","gần đây","你最近怎么样？","Nǐ zuìjìn zěnmeyàng?","Dạo gần đây bạn thế nào?"]]},
+ {n:6, title:"怎么突然找不到了？ · Sao bỗng dưng lại không tìm thấy?", words:[
+   ["眼镜","yǎnjìng","kính mắt","我找不到我的眼镜了。","Wǒ zhǎo bu dào wǒ de yǎnjìng le.","Tôi không tìm thấy kính của mình."],
+   ["突然","tūrán","đột nhiên","天突然下雨了。","Tiān tūrán xiàyǔ le.","Trời đột nhiên đổ mưa."],
+   ["离开","líkāi","rời đi","他已经离开公司了。","Tā yǐjīng líkāi gōngsī le.","Anh ấy đã rời khỏi công ty rồi."],
+   ["清楚","qīngchu","rõ ràng","请说清楚一点儿。","Qǐng shuō qīngchu yìdiǎnr.","Xin hãy nói rõ ràng hơn một chút."],
+   ["刚才","gāngcái","vừa nãy","他刚才还在这儿。","Tā gāngcái hái zài zhèr.","Vừa nãy anh ấy còn ở đây."],
+   ["帮忙","bāngmáng","giúp đỡ","你能帮我个忙吗？","Nǐ néng bāng wǒ ge máng ma?","Bạn có thể giúp tôi một việc khô
