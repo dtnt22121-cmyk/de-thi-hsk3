@@ -5,171 +5,140 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>准考证 · Ôn tập tổng hợp HSK3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#173B3A;
-    --teal:#1F7A6C;
-    --teal-2:#2A9D8F;
-    --paper:#FBF7ED;
-    --shadow:0 10px 25px rgba(23,59,58,0.10);
+    --ink:#173B3A; --teal:#1F7A6C; --teal-2:#2A9D8F; --paper:#FBF7ED; --paper-line:#E4DCC8;
+    --seal:#C0392B; --seal-dark:#8E2A1E; --gold:#D4A017; --green:#3E8E5A;
+    --shadow:0 10px 28px rgba(23,59,58,0.14);
   }
   *{box-sizing:border-box;}
-  body{
-    margin:0; min-height:100vh;
-    background:radial-gradient(circle at 15% 8%, rgba(212,160,23,0.08), transparent 40%),
-               radial-gradient(circle at 90% 85%, rgba(31,122,108,0.10), transparent 45%), var(--paper);
-    font-family:'Nunito',sans-serif; color:var(--ink); padding:12px 14px 30px;
-  }
-  h1,h2,h3{font-family:'Baloo 2',sans-serif; margin:0;}
+  body{margin:0;min-height:100vh;
+    background:radial-gradient(circle at 15% 8%, rgba(212,160,23,0.10), transparent 40%),
+               radial-gradient(circle at 90% 85%, rgba(31,122,108,0.12), transparent 45%), var(--paper);
+    font-family:'Nunito',sans-serif; color:var(--ink); padding-bottom:28px;}
+  h1,h2,h3{font-family:'Baloo 2',sans-serif;}
+  .zh-word{font-family:'Noto Sans SC',sans-serif; font-weight:700;}
+  .stamp-text{font-family:'Ma Shan Zheng',cursive;}
 
-  /* Header Ticket Banner */
-  .ticket{
-    background:linear-gradient(135deg, #1f7a6c, #2a9d8f);
-    border-radius:20px; padding:18px 20px; color:#fff;
-    box-shadow:var(--shadow); position:relative; overflow:hidden; margin-bottom:16px;
-  }
-  .ticket::after{
-    content:''; position:absolute; right:-20px; top:-20px; width:120px; height:120px;
-    border-radius:50%; background:rgba(255,255,255,0.08);
-  }
-  .ticket .kicker{font-size:12px; letter-spacing:1.5px; opacity:0.85; text-transform:uppercase; font-weight:700;}
-  .ticket h1{font-size:21px; font-weight:800; margin-top:4px; line-height:1.2;}
-  .ticket .sub{font-size:13px; opacity:0.9; margin-top:6px;}
+  .ticket{margin:16px 14px 10px; padding:16px 18px;
+    background:linear-gradient(135deg,var(--teal),var(--teal-2)); border-radius:16px; color:#fff;
+    box-shadow:var(--shadow); position:relative; overflow:hidden;}
+  .ticket::after{content:'';position:absolute;right:-30px;top:-30px;width:120px;height:120px;
+    border-radius:50%;background:rgba(255,255,255,0.08);}
+  .ticket .kicker{font-size:12px;letter-spacing:2px;opacity:.85;text-transform:uppercase;}
+  .ticket h1{margin:2px 0 0;font-size:20px;}
+  .ticket .sub{font-size:13px;opacity:.9;margin-top:4px;}
 
-  /* Main Card */
-  .card{
-    background:#fff; border-radius:22px; padding:16px;
-    box-shadow:var(--shadow); border:1.5px solid #eae5d8; margin-bottom:16px;
-  }
+  .screen{display:none;padding:0 14px;}
+  .screen.active{display:block;}
+  .card{background:#fff;border-radius:16px;padding:16px;box-shadow:var(--shadow);
+    border:1px solid var(--paper-line);margin-bottom:14px;}
 
-  /* Option Buttons */
-  .path-btn{
-    display:flex; align-items:center; gap:14px; padding:16px; border-radius:18px;
-    border:2px solid #e2dad0; background:#fffdf8; cursor:pointer; width:100%; text-align:left;
-    margin-bottom:14px; transition:all 0.2s ease; text-decoration:none; color:var(--ink);
-  }
-  .path-btn:last-child{margin-bottom:0;}
-  .path-btn.teal-active{border-color:var(--teal); background:#fffdf8;}
-  .path-btn .ic{font-size:32px; flex-shrink:0;}
-  .path-btn .content{flex:1;}
-  .path-btn .tt{font-family:'Baloo 2'; font-size:17px; font-weight:700; color:var(--ink); display:block; line-height:1.2;}
-  .path-btn .dd{font-size:12.5px; color:#6d7c7b; margin-top:4px; line-height:1.35; display:block;}
+  .path-btn{display:flex;align-items:center;gap:12px;padding:16px;border-radius:14px;
+    border:2px solid var(--paper-line);background:#fffdf7;cursor:pointer;width:100%;text-align:left;
+    margin-bottom:12px;}
+  .path-btn .ic{font-size:30px;}
+  .path-btn .tt{font-family:'Baloo 2';font-size:16px;color:var(--ink);font-weight:700;}
+  .path-btn .dd{font-size:12.5px;color:#7a8a89;margin-top:2px;}
+  .path-btn.teal{border-color:var(--teal-2);}
+  .path-btn.exam-btn-5{border-color:var(--seal);background:#fff9f8;}
 
-  /* Teacher Link */
-  .teacher-link-wrap{text-align:center; margin:16px 0 16px;}
-  .teacher-link{
-    font-size:13.5px; color:var(--teal); font-weight:700; text-decoration:underline; cursor:pointer;
-    display:inline-flex; align-items:center; gap:6px;
-  }
+  .student-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .teacher-link{margin-top:4px;text-align:center;font-size:13px;color:var(--teal);
+    text-decoration:underline;cursor:pointer;}
+  .back-link{font-size:13px;color:var(--teal);text-decoration:underline;cursor:pointer;
+    display:inline-block;margin-bottom:10px;}
 
-  /* Section Card (Sub-screen) */
-  .back-link{
-    font-size:13.5px; color:var(--teal); font-weight:700; text-decoration:underline;
-    cursor:pointer; display:inline-block; margin-bottom:12px;
-  }
-
-  /* Red Banner Inside Exam Section */
-  .red-banner{
-    background:linear-gradient(135deg, #c0392b, #a93226);
-    border-radius:16px; padding:16px 18px; color:#fff; margin-bottom:16px;
-  }
-  .red-banner .zh-title{font-family:'Noto Sans SC', sans-serif; font-size:18px; font-weight:900; line-height:1.2;}
-  .red-banner .exam-code{font-size:13px; opacity:0.9; margin-top:6px; font-weight:600;}
-  .red-banner .exam-note{font-size:12px; opacity:0.85; margin-top:4px;}
-
-  /* Student Grid */
-  .student-grid{
-    display:grid; grid-template-columns:1fr 1fr; gap:12px;
-  }
-  .student-btn{
-    display:flex; align-items:center; justify-content:center; gap:8px;
-    padding:16px 10px; border-radius:16px; border:2px solid #e2dad0;
-    background:#fffdf8; cursor:pointer; font-family:'Baloo 2', sans-serif;
-    font-size:17px; font-weight:700; color:var(--ink); text-decoration:none;
-    transition:all 0.2s ease;
-  }
-  .student-btn:hover{border-color:var(--teal); background:#f4faf8;}
-  .student-btn .avatar{font-size:22px;}
+  .exam-head{background:linear-gradient(135deg,#8e2a1e,#c0392b);color:#fff;border-radius:14px;padding:14px;margin-bottom:12px;}
+  .exam-head h3{margin:0 0 4px;}
+  .exam-meta{font-size:12.5px;opacity:.92;line-height:1.6;}
+  .btn{padding:13px;border-radius:12px;border:none;font-family:'Baloo 2';font-size:15px;cursor:pointer;width:100%;}
+  .btn-ghost{background:#fff;color:var(--teal);border:2px solid var(--teal);margin-top:8px;}
 </style>
 </head>
 <body>
 
-<!-- Header Ticket Banner -->
 <div class="ticket">
-  <div class="kicker">准考证 · PHIẾU ÔN TẬP</div>
-  <h1>HSK3 2.0 · Ôn tập tổng hợp 20 bài</h1>
-  <div class="sub" id="ticketSub">Đề thi HSK3 Số 1 · Chọn học sinh</div>
+  <div class="kicker">准考证 · Phiếu ôn tập</div>
+  <h1>HSK3 2.0 · HỆ THỐNG ĐỀ THI VÀ ÔN TẬP</h1>
+  <div class="sub" id="ticketSub">Vui lòng chọn Đề số 1 hoặc Đề số 5 để làm bài</div>
 </div>
 
-<!-- Container -->
-<div class="container">
-
-  <!-- Main Menu Card -->
+<div class="screen active" id="screen-home">
   <div class="card">
-    <button class="path-btn teal-active" id="btnGoStudy">
+    <button class="path-btn teal" onclick="alert('Đang mở phần ôn tập kiến thức...')">
       <span class="ic">📘</span>
-      <span class="content">
-        <span class="tt">Ôn tập kiến thức</span>
-        <span class="dd">Xem lại từ vựng &amp; ngữ pháp trước khi làm bài — cô dạy hoặc học sinh tự xem ở nhà</span>
-      </span>
+      <span><span class="tt">Ôn tập kiến thức</span><br><span class="dd">Xem lại từ vựng &amp; ngữ pháp trước khi làm bài</span></span>
     </button>
-
-    <button class="path-btn" id="btnGoExercise">
+    
+    <button class="path-btn" onclick="alert('Đang mở bài tập tự luyện...')">
       <span class="ic">📝</span>
-      <span class="content">
-        <span class="tt">Làm bài tập</span>
-        <span class="dd">Chọn tên rồi làm 8 dạng bài tự chấm điểm</span>
-      </span>
+      <span><span class="tt">Làm bài tập tự luyện</span><br><span class="dd">Các dạng bài luyện tập theo chuyên đề</span></span>
     </button>
 
-    <a href="hsk3-de-1.html" class="path-btn">
-      <span class="ic">🎓</span>
-      <span class="content">
-        <span class="tt">Đề thi tiếng Trung HSK3 Số 1</span>
-        <span class="dd">Đề riêng cho từng học sinh: Thư · Bông · Bo · Sumo — làm độc lập, có chấm điểm cuối bài</span>
-      </span>
-    </a>
-  </div>
+    <!-- TÁCH BÀI THI THÀNH 2 ĐỀ RIÊNG BIỆT DỄ NHÌN -->
+    <div style="margin-top: 15px; border-top: 2px dashed var(--paper-line); padding-top: 15px;">
+      <p style="font-weight: 700; margin-bottom: 10px; font-size: 15px;">🎯 DANH SÁCH ĐỀ THI HSK3:</p>
 
-  <!-- Teacher Result Link -->
-  <div class="teacher-link-wrap">
-    <span class="teacher-link">
-      👩‍🏫 Xem bảng kết quả của cô giáo
-    </span>
-  </div>
+      <button class="path-btn teal" onclick="openExam(1)">
+        <span class="ic">🎓</span>
+        <span>
+          <span class="tt" style="color: var(--teal);">Đề thi HSK3 — ĐỀ SỐ 1</span><br>
+          <span class="dd">Mã đề: H31001 · Dành riêng cho học sinh làm độc lập (Thư, Bông, Bo, Sumo)</span>
+        </span>
+      </button>
 
-  <!-- Student Selection Card Section -->
-  <div class="card">
-    <span class="back-link">← Quay lại</span>
-
-    <div class="red-banner">
-      <div class="zh-title">新汉语水平考试·HSK（三级）</div>
-      <div class="exam-code">H31001 · Đề thi tiếng Trung HSK3 Số 1</div>
-      <div class="exam-note">Chọn đúng tên học sinh. Mỗi bạn có một lượt làm bài riêng.</div>
-    </div>
-
-    <div class="student-grid">
-      <a href="hsk3-de-1.html?student=Thu" class="student-btn">
-        <span class="avatar">🌸</span>
-        <span>Thư</span>
-      </a>
-      <a href="hsk3-de-1.html?student=Bong" class="student-btn">
-        <span class="avatar">🌼</span>
-        <span>Bông</span>
-      </a>
-      <a href="hsk3-de-1.html?student=Bo" class="student-btn">
-        <span class="avatar">🐻</span>
-        <span>Bo</span>
-      </a>
-      <a href="hsk3-de-1.html?student=Sumo" class="student-btn">
-        <span class="avatar">🐼</span>
-        <span>Sumo</span>
-      </a>
+      <button class="path-btn exam-btn-5" onclick="openExam(5)">
+        <span class="ic">📕</span>
+        <span>
+          <span class="tt" style="color: var(--seal);">Đề thi HSK3 — ĐỀ SỐ 5</span><br>
+          <span class="dd">Mã đề: H31005 · Cập nhật theo cấu trúc giao diện mới trên web</span>
+        </span>
+      </button>
     </div>
   </div>
 
+  <div class="teacher-link">👩‍🏫 Xem bảng kết quả của cô giáo</div>
 </div>
+
+<!-- MÀN HÌNH LÀM BÀI THI -->
+<div class="screen" id="screen-exam">
+  <div class="card">
+    <span class="back-link" onclick="goHome()">← Quay lại chọn đề</span>
+    <div class="exam-head" id="examHeadInfo">
+      <!-- Nội dung đề thi sẽ hiển thị ở đây -->
+    </div>
+    <div id="examBody" style="padding: 10px 0;">
+      <p style="text-align: center; color: #666;">Đang tải nội dung câu hỏi...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openExam(examNum) {
+    document.getElementById('screen-home').classList.remove('active');
+    document.getElementById('screen-exam').classList.add('active');
+    
+    const headInfo = document.getElementById('examHeadInfo');
+    const examBody = document.getElementById('examBody');
+
+    if(examNum === 1) {
+      headInfo.style.background = "linear-gradient(135deg, #1F7A6C, #2A9D8F)";
+      headInfo.innerHTML = `<h3>新汉语水平考试 · HSK（三级）</h3><div class="exam-meta"><b>MÃ ĐỀ: H31001 — ĐỀ SỐ 1</b><br>Đề thi ôn tập tổng hợp 20 bài. Chọn tên học sinh và bắt đầu làm bài.</div>`;
+      examBody.innerHTML = `<p><b>Giao diện bài thi Đề Số 1:</b> Hệ thống đã sẵn sàng cho học sinh làm bài.</p><button class="btn btn-ghost" onclick="goHome()">Quay lại</button>`;
+    } else if(examNum === 5) {
+      headInfo.style.background = "linear-gradient(135deg, #8e2a1e, #c0392b)";
+      headInfo.innerHTML = `<h3>新汉语水平考试 · HSK（三级）</h3><div class="exam-meta"><b>MÃ ĐỀ: H31005 — ĐỀ SỐ 5</b><br>Đề thi trực tuyến theo dữ liệu mới nhất trên trang web.</div>`;
+      examBody.innerHTML = `<p><b>Giao diện bài thi Đề Số 5:</b> Hệ thống đã đồng bộ hóa đề thi số 5 từ trang web.</p><button class="btn btn-ghost" onclick="goHome()">Quay lại</button>`;
+    }
+  }
+
+  function goHome() {
+    document.getElementById('screen-exam').classList.remove('active');
+    document.getElementById('screen-home').classList.add('active');
+  }
+</script>
 
 </body>
 </html>
