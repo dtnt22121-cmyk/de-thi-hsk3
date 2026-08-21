@@ -13,187 +13,140 @@
     --shadow:0 10px 28px rgba(23,59,58,0.14);
   }
   *{box-sizing:border-box;}
-  body{margin:0;min-height:100vh;
+  body{
+    margin:0; min-height:100vh;
     background:radial-gradient(circle at 15% 8%, rgba(212,160,23,0.10), transparent 40%),
                radial-gradient(circle at 90% 85%, rgba(31,122,108,0.12), transparent 45%), var(--paper);
-    font-family:'Nunito',sans-serif; color:var(--ink); padding-bottom:28px;}
-  h1,h2,h3{font-family:'Baloo 2',sans-serif;}
+    font-family:'Nunito',sans-serif; color:var(--ink); padding-bottom:28px;
+  }
+  h1,h2,h3{font-family:'Baloo 2',sans-serif; margin:0;}
   .zh-word{font-family:'Noto Sans SC',sans-serif; font-weight:700;}
-  .stamp-text{font-family:'Ma Shan Zheng',cursive;}
-  .pinyin-mini{display:block;font-size:11.5px;color:#8a9695;font-weight:600;margin-top:1px;font-family:'Nunito';}
-  .pinyin-line{font-size:13px;color:#7a8a89;text-align:center;margin-bottom:8px;font-style:italic;}
+  
+  .ticket{
+    margin:16px 14px 12px; padding:18px 20px;
+    background:linear-gradient(135deg,var(--teal),var(--teal-2)); border-radius:20px; color:#fff;
+    box-shadow:var(--shadow); position:relative; overflow:hidden;
+  }
+  .ticket::after{
+    content:''; position:absolute; right:-30px; top:-30px; width:130px; height:130px;
+    border-radius:50%; background:rgba(255,255,255,0.08);
+  }
+  .ticket .kicker{font-size:12px; letter-spacing:2px; opacity:.85; text-transform:uppercase; font-weight:700;}
+  .ticket h1{font-size:22px; margin-top:4px;}
+  .ticket .sub{font-size:13.5px; opacity:.9; margin-top:4px;}
 
-  .ticket{margin:16px 14px 10px; padding:16px 18px;
-    background:linear-gradient(135deg,var(--teal),var(--teal-2)); border-radius:16px; color:#fff;
-    box-shadow:var(--shadow); position:relative; overflow:hidden;}
-  .ticket::after{content:'';position:absolute;right:-30px;top:-30px;width:120px;height:120px;
-    border-radius:50%;background:rgba(255,255,255,0.08);}
-  .ticket .kicker{font-size:12px;letter-spacing:2px;opacity:.85;text-transform:uppercase;}
-  .ticket h1{margin:2px 0 0;font-size:20px;}
-  .ticket .sub{font-size:13px;opacity:.9;margin-top:4px;}
-
-  .screen{display:none;padding:0 14px;}
+  .container{padding:0 14px;}
+  .screen{display:none;}
   .screen.active{display:block;}
-  .card{background:#fff;border-radius:16px;padding:16px;box-shadow:var(--shadow);
-    border:1px solid var(--paper-line);margin-bottom:14px;}
 
-  .path-btn{display:flex;align-items:center;gap:12px;padding:16px;border-radius:14px;
-    border:2px solid var(--paper-line);background:#fffdf7;cursor:pointer;width:100%;text-align:left;
-    margin-bottom:12px;}
-  .path-btn .ic{font-size:30px;}
-  .path-btn .tt{font-family:'Baloo 2';font-size:16px;color:var(--ink);}
-  .path-btn .dd{font-size:12.5px;color:#7a8a89;margin-top:2px;}
-  .path-btn.teal{border-color:var(--teal-2);}
+  .card{
+    background:#fff; border-radius:18px; padding:20px 16px; box-shadow:var(--shadow);
+    border:1px solid var(--paper-line); margin-bottom:16px;
+  }
+  .card-title{font-size:18px; color:var(--ink); font-weight:800; margin-bottom:14px; text-align:center;}
 
-  .student-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  .student-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 8px;
-    border-radius:14px;border:2px solid var(--paper-line);background:#fffdf7;cursor:pointer;
-    font-family:'Baloo 2';font-size:16px;color:var(--ink);}
-  .student-btn .avatar{font-size:32px;}
-  .teacher-link{margin-top:4px;text-align:center;font-size:13px;color:var(--teal);
-    text-decoration:underline;cursor:pointer;}
-  .back-link{font-size:13px;color:var(--teal);text-decoration:underline;cursor:pointer;
-    display:inline-block;margin-bottom:10px;}
+  .path-btn{
+    display:flex; align-items:center; gap:14px; padding:16px; border-radius:16px;
+    border:2px solid var(--paper-line); background:#fffdf7; cursor:pointer; width:100%; text-align:left;
+    margin-bottom:14px; transition:all 0.2s ease; text-decoration:none;
+  }
+  .path-btn:hover{transform:translateY(-2px); border-color:var(--teal);}
+  .path-btn .ic{font-size:32px; flex-shrink:0;}
+  .path-btn .tt{font-family:'Baloo 2'; font-size:17px; color:var(--ink); font-weight:700;}
+  .path-btn .dd{font-size:13px; color:#6d7c7b; margin-top:3px; line-height:1.4;}
+  .path-btn.teal{border-color:var(--teal-2); background:rgba(42,157,143,0.05);}
 
-  .tabbar{display:flex;overflow-x:auto;gap:6px;padding:10px 0 12px;margin:0 -14px;padding-left:14px;padding-right:14px;}
-  .tab{flex:0 0 auto;padding:8px 12px;border-radius:20px;border:2px solid var(--paper-line);
-    background:#fffdf7;font-size:12.5px;font-weight:800;color:var(--ink);cursor:pointer;
-    display:flex;align-items:center;gap:5px;white-space:nowrap;}
-  .tab.active{background:var(--teal);border-color:var(--teal);color:#fff;}
-  .tab.done::after{content:'✓';color:var(--green);font-weight:900;}
-  .tab.active.done::after{color:#d7ffe6;}
+  .exam-list{display:flex; flex-direction:column; gap:12px; margin-top:10px;}
+  .exam-item{
+    display:flex; align-items:center; justify-content:space-between; padding:14px 16px;
+    background:#fffdf7; border:2px solid var(--paper-line); border-radius:14px; text-decoration:none;
+    color:var(--ink); transition:all 0.2s;
+  }
+  .exam-item:hover{border-color:var(--teal); background:#f2faf8;}
+  .exam-item .info .title{font-family:'Baloo 2'; font-size:16px; font-weight:700;}
+  .exam-item .info .desc{font-size:12.5px; color:#7a8a89; margin-top:2px;}
+  .exam-item .arrow{font-size:18px; color:var(--teal); font-weight:bold;}
 
-  .sec-title{font-size:17px;margin:2px 0 4px;}
-  .sec-sub{font-size:13px;color:#6d7c7b;margin-bottom:12px;}
-  .item-count{font-size:12px;color:#8a9695;font-weight:700;margin-bottom:8px;}
+  .back-btn{
+    display:inline-flex; align-items:center; gap:6px; font-size:13.5px; font-weight:700;
+    color:var(--teal); background:none; border:none; cursor:pointer; padding:6px 0; margin-bottom:12px;
+  }
 
-  .q-block{border-bottom:1px solid var(--paper-line);padding:14px 0;}
-  .q-block:last-child{border-bottom:none;}
-  .q-num{display:inline-block;font-size:11px;font-weight:800;color:var(--teal);
-    background:rgba(31,122,108,.1);padding:2px 9px;border-radius:10px;margin-bottom:8px;}
-  .q-display-emoji{font-size:48px;text-align:center;margin:4px 0 10px;}
-  .q-display-hanzi{font-size:24px;text-align:center;margin:4px 0 2px;}
-  .speak-btn{border:none;background:var(--teal);color:#fff;width:32px;height:32px;border-radius:50%;
-    font-size:14px;cursor:pointer;margin-left:6px;}
-  .speak-btn.big{width:56px;height:56px;font-size:22px;display:block;margin:6px auto 4px;}
-  .q-prompt{font-size:15px;font-weight:700;margin-bottom:10px;text-align:center;}
-  .q-prompt.left{text-align:left;}
-  .options-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-  .opt-btn{text-align:left;padding:9px 11px;border-radius:11px;border:2px solid var(--paper-line);
-    background:#fffdf7;font-size:14px;cursor:pointer;color:var(--ink);font-family:'Nunito';}
-  .opt-btn.selected{border-color:var(--gold);background:#FFF6DF;}
-  .opt-btn.correct{border-color:var(--green);background:#E9F7EE;}
-  .opt-btn.wrong{border-color:var(--seal);background:#FBEAE8;}
-  .fb-note{font-size:12.5px;margin-top:6px;color:var(--seal);}
-  .fb-note.ok{color:var(--green);}
-  .reveal-box{margin-top:8px;font-size:13px;background:#F7F1E1;border-radius:8px;padding:8px 10px;}
-
-  .dialog-box{background:#F7F1E1;border-radius:12px;padding:12px 14px;margin-bottom:10px;font-size:15px;}
-  .dialog-a{color:var(--teal);font-weight:800;}
-
-  .para-box{font-size:16px;line-height:2.1;background:#FFFDF7;border:1px solid var(--paper-line);
-    border-radius:12px;padding:14px;margin-bottom:6px;}
-  .blank-slot{display:inline-block;min-width:44px;padding:2px 8px;border-bottom:2px solid var(--teal);
-    text-align:center;font-family:'Noto Sans SC';font-weight:700;color:var(--teal);cursor:pointer;}
-  .blank-slot.empty{color:#c7bfa8;}
-  .wordbank{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
-  .wb-chip{padding:7px 12px;border-radius:10px;background:#fffdf7;border:2px solid var(--paper-line);
-    font-family:'Noto Sans SC';font-size:14px;cursor:pointer;text-align:center;line-height:1.3;}
-  .wb-chip.used{opacity:.3;pointer-events:none;}
-
-  .passage{background:#FFFDF7;border:1px solid var(--paper-line);border-radius:12px;padding:14px;
-    font-size:16px;line-height:1.9;margin-bottom:4px;font-family:'Noto Sans SC';}
-  .toggle-link{font-size:12.5px;color:var(--teal);text-decoration:underline;cursor:pointer;
-    display:inline-block;margin-bottom:12px;}
-
-  .match-cols{display:flex;gap:10px;}
-  .match-col{flex:1;display:flex;flex-direction:column;gap:8px;}
-  .match-item{padding:9px 8px;border-radius:10px;border:2px solid var(--paper-line);background:#fffdf7;
-    font-size:13.5px;text-align:center;cursor:pointer;}
-  .match-item.zh{font-family:'Noto Sans SC';font-weight:700;font-size:16px;}
-  .match-item.sel{border-color:var(--gold);background:#FFF6DF;}
-  .match-item.matched{border-color:var(--green);background:#E9F7EE;pointer-events:none;opacity:.7;}
-  .match-item.wrong{border-color:var(--seal);background:#FBEAE8;}
-
-  .btn{padding:13px;border-radius:12px;border:none;font-family:'Baloo 2';font-size:15px;cursor:pointer;}
-  .btn-primary{background:var(--teal);color:#fff;width:100%;margin-top:6px;}
-  .btn-ghost{background:#fff;color:var(--teal);border:2px solid var(--teal);width:100%;margin-top:8px;}
-
-  .result-wrap{text-align:center;}
-  .stamp{width:150px;height:150px;margin:10px auto 6px;border-radius:50%;border:6px solid var(--seal);
-    color:var(--seal);display:flex;flex-direction:column;align-items:center;justify-content:center;
-    transform:rotate(-8deg);}
-  .stamp .big{font-size:30px;font-weight:900;font-family:'Baloo 2';}
-  .stamp .zh-stamp{font-family:'Ma Shan Zheng';font-size:18px;margin-top:2px;}
-  .sec-summary-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;
-    border-bottom:1px solid var(--paper-line);font-size:14px;}
-  .sec-summary-row b{color:var(--teal);}
-
-  .teach-row{background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:10px;box-shadow:var(--shadow);
-    border:1px solid var(--paper-line);}
-  .teach-top{display:flex;justify-content:space-between;align-items:center;}
-  .teach-name{font-family:'Baloo 2';font-size:16px;}
-  .teach-meta{font-size:12px;color:#7a8a89;}
-  .teach-score{font-family:'Baloo 2';font-size:20px;color:var(--teal);}
-  .teach-detail{font-size:12px;color:#7a8a89;margin-top:6px;}
-  .empty{text-align:center;color:#8a9695;padding:30px 10px;font-size:14px;}
-
-  .study-tabbar{display:flex;gap:8px;margin-bottom:14px;}
-  .study-tab{flex:1;padding:10px;border-radius:12px;border:2px solid var(--paper-line);background:#fffdf7;
-    font-family:'Baloo 2';font-size:14px;text-align:center;cursor:pointer;color:var(--ink);}
-  .study-tab.active{background:var(--teal);border-color:var(--teal);color:#fff;}
-  .gram-card{border:1px solid var(--paper-line);border-radius:12px;padding:12px 14px;margin-bottom:10px;
-    background:#fffdf7;}
-  .gram-num{font-size:11px;font-weight:800;color:#fff;background:var(--teal);display:inline-block;
-    padding:2px 8px;border-radius:10px;margin-bottom:6px;}
-  .gram-struct{font-family:'Baloo 2';font-size:15px;margin-bottom:4px;}
-  .gram-usage{font-size:13px;color:var(--ink);background:#F7F1E1;border-radius:8px;padding:7px 9px;margin:6px 0;line-height:1.5;}
-  .gram-usage b{color:var(--teal);}
-  .gram-example{font-family:'Noto Sans SC';font-size:16px;font-weight:700;margin-top:6px;}
-  .gram-pinyin{font-size:12.5px;color:#7a8a89;font-style:italic;}
-  .gram-meaning{font-size:13.5px;color:var(--ink);margin-top:2px;}
-
-  .lesson-accordion{border:1px solid var(--paper-line);border-radius:12px;margin-bottom:8px;overflow:hidden;}
-  .lesson-head{padding:12px 14px;background:#fffdf7;cursor:pointer;display:flex;justify-content:space-between;
-    align-items:center;font-family:'Baloo 2';font-size:14.5px;}
-  .lesson-head .arrow{transition:transform .2s;font-size:12px;color:var(--teal);}
-  .lesson-head.open .arrow{transform:rotate(90deg);}
-  .lesson-body{display:none;padding:6px 14px 12px;}
-  .lesson-body.open{display:block;}
-  .vocab-card{padding:9px 0;border-bottom:1px solid var(--paper-line);}
-  .vocab-card:last-child{border-bottom:none;}
-  .vocab-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
-  .vocab-zh{font-family:'Noto Sans SC';font-weight:700;font-size:16.5px;}
-  .vocab-py{font-size:12px;color:#8a9695;font-style:italic;}
-  .vocab-vi{font-size:13px;color:var(--ink);margin-left:auto;text-align:right;}
-  .vocab-example{font-size:12.5px;color:#5f716f;background:#F7F1E1;border-radius:7px;padding:6px 8px;margin-top:5px;}
-  .vocab-example .ex-zh{font-family:'Noto Sans SC';font-weight:600;color:var(--ink);}
-  .vocab-example .ex-py{font-style:italic;}
+  .footer-note{text-align:center; font-size:12px; color:#8a9695; margin-top:20px;}
 </style>
 </head>
 <body>
 
 <div class="ticket">
   <div class="kicker">准考证 · Phiếu ôn tập</div>
-  <h1>HSK3 2.0 · Ôn tập tổng hợp 20 bài</h1>
-  <div class="sub" id="ticketSub">Chọn một mục để bắt đầu</div>
+  <h1>HSK3 2.0 · Hệ thống đề thi &amp; Ôn tập</h1>
+  <div class="sub" id="ticketSub">Chọn một mục bên dưới để bắt đầu</div>
 </div>
 
-<div class="screen active" id="screen-home">
-  <div class="card">
-    <button class="path-btn teal" id="goStudy">
-      <span class="ic">📘</span>
-      <span><span class="tt">Ôn tập kiến thức</span><br><span class="dd">Xem lại từ vựng &amp; ngữ pháp trước khi làm bài — cô dạy hoặc học sinh tự xem ở nhà</span></span>
-    </button>
-    <button class="path-btn" id="goExercise">
-      <span class="ic">📝</span>
-      <span><span class="tt">Làm bài tập</span><br><span class="dd">Chọn tên rồi làm 8 dạng bài tự chấm điểm</span></span>
-    </button>
+<div class="container">
+  <!-- Trang chủ chính -->
+  <div class="screen active" id="screen-home">
+    <div class="card">
+      <div class="card-title">📌 Danh mục bài thi &amp; Học tập</div>
+      
+      <a href="hsk3-de-2.html" class="path-btn teal">
+        <span class="ic">📝</span>
+        <span>
+          <span class="tt">Đề thi HSK 3 - Số 2</span><br>
+          <span class="dd">Làm bài tập HSK 3 trực tuyến với hệ thống tự chấm điểm &amp; gửi kết quả</span>
+        </span>
+      </a>
+
+      <button class="path-btn" id="btnStudy">
+        <span class="ic">📘</span>
+        <span>
+          <span class="tt">Ôn tập kiến thức 20 bài</span><br>
+          <span class="dd">Xem lại danh sách các bài luyện tập &amp; đề thi</span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Screen Ôn tập kiến thức -->
+  <div class="screen" id="screen-study">
+    <button class="back-btn" id="btnBackHome">← Quay lại trang chính</button>
+    <div class="card">
+      <div class="card-title">📚 Danh sách đề thi HSK 3</div>
+      <p style="text-align:center; font-size:14px; color:#5f716f; margin-bottom:16px;">
+        Chọn bài thi dưới đây để bắt đầu làm bài:
+      </p>
+      
+      <div class="exam-list">
+        <a href="hsk3-de-2.html" class="exam-item">
+          <div class="info">
+            <div class="title">Đề thi HSK 3 - Số 2</div>
+            <div class="desc">Tự động chấm điểm &amp; gửi kết quả cho cô giáo</div>
+          </div>
+          <div class="arrow">➜</div>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 
+<div class="footer-note">HSK3 Online Learning Platform · Designed for Zoom &amp; Self-study</div>
+
 <script>
-  console.log("HSK3 App Loaded");
+  const screenHome = document.getElementById('screen-home');
+  const screenStudy = document.getElementById('screen-study');
+  const btnStudy = document.getElementById('btnStudy');
+  const btnBackHome = document.getElementById('btnBackHome');
+
+  btnStudy.addEventListener('click', () => {
+    screenHome.classList.remove('active');
+    screenStudy.classList.add('active');
+  });
+
+  btnBackHome.addEventListener('click', () => {
+    screenStudy.classList.remove('active');
+    screenHome.classList.add('active');
+  });
 </script>
+
 </body>
 </html>
