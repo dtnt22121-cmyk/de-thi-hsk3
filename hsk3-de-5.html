@@ -183,10 +183,13 @@
   .exam-options{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
   .exam-option{padding:9px;border:2px solid var(--paper-line);border-radius:10px;background:#fffdf7;cursor:pointer;font-size:13.5px;text-align:left;}
   .exam-option.selected{border-color:var(--gold);background:#FFF6DF;}
-  .exam-input{width:100%;padding:9px 10px;border:2px solid var(--paper-line);border-radius:10px;font-size:15px;font-family:'Nunito';} .exam-small{max-width:220px;}
+  .exam-input{width:100%;padding:9px 10px;border:2px solid var(--paper-line);border-radius:10px;font-size:15px;font-family:'Nunito';} 
   .exam-source-img{width:100%;border:1px solid var(--paper-line);border-radius:10px;margin:8px 0;background:#fff;}
   .exam-bank{font-size:13px;background:#F7F1E1;border-radius:10px;padding:10px;margin:6px 0 10px;line-height:1.7;}
-  .exam-pinyin{font-size:12px;color:#667b78;font-style:italic;margin:2px 0 6px;padding-left:2px;} .exam-audio-wrap{background:#eef7f5;border:1px solid var(--paper-line);border-radius:10px;padding:8px 10px;margin:8px 0;} .exam-audio-wrap b{display:block;font-size:13px;margin-bottom:5px;color:var(--teal);} .exam-audio{width:100%;}
+  .exam-pinyin{font-size:12px;color:#667b78;font-style:italic;margin:2px 0 6px;padding-left:2px;} 
+  .exam-audio-wrap{background:#eef7f5;border:1px solid var(--paper-line);border-radius:10px;padding:8px 10px;margin:8px 0;} 
+  .exam-audio-wrap b{display:block;font-size:13px;margin-bottom:5px;color:var(--teal);} 
+  .exam-audio{width:100%;}
   .exam-passage{background:#fffdf7;border:1px solid var(--paper-line);border-radius:12px;padding:12px;margin-bottom:10px;}
   .exam-passage-zh{font-family:'Noto Sans SC';font-size:17px;line-height:1.9;}
   .teacher-result-card{border:1px solid var(--paper-line);border-radius:12px;padding:12px;margin:10px 0;background:#fffdf7;}
@@ -195,12 +198,10 @@
   .teacher-result-bar span{display:block;height:100%;background:var(--teal);border-radius:99px;}
   .teacher-wrong-list{font-size:12.5px;line-height:1.7;margin-top:8px;padding:8px;background:#FBEAE8;border-radius:8px;}
   .exam-result-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--paper-line);font-size:13px;}
-  .exam-correct{color:var(--green);font-weight:800;} .exam-wrong{color:var(--seal);font-weight:800;}
+  .exam-correct{color:var(--green);font-weight:800;} 
+  .exam-wrong{color:var(--seal);font-weight:800;}
   .exam-timer{position:sticky;top:8px;z-index:5;background:#fff;border:2px solid var(--teal);border-radius:12px;padding:8px 10px;text-align:center;font-family:'Baloo 2';font-size:18px;color:var(--teal);margin-bottom:10px;box-shadow:var(--shadow);}
-  @media(max-width:600px){.exam-options{grid-template-columns:1fr 1fr;}.exam-source-img{max-height:none;}.exam-student-grid{grid-template-columns:1fr 1fr;}}
-
-  .exam-listening-part{margin-top:14px;padding:14px;border:2px solid #E4DCC8;border-radius:14px;background:#fffdf7;}
-  .exam-listening-part h4{margin:0 0 6px;font-size:15px;color:#8E2A1E;}
+  @media(max-width:600px){.exam-options{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
@@ -215,15 +216,15 @@
   <div class="card">
     <button class="path-btn teal" id="goStudy">
       <span class="ic">📘</span>
-      <span><span class="tt">Ôn tập kiến thức</span><br><span class="dd">Xem lại từ vựng &amp; ngữ pháp trước khi làm bài — cô dạy hoặc học sinh tự xem ở nhà</span></span>
+      <span><span class="tt">Ôn tập kiến thức</span><br><span class="dd">Xem lại từ vựng &amp; ngữ pháp đầy đủ 20 bài</span></span>
     </button>
     <button class="path-btn" id="goExercise">
       <span class="ic">📝</span>
-      <span><span class="tt">Làm bài tập</span><br><span class="dd">Chọn tên rồi làm 8 dạng bài tự chấm điểm</span></span>
+      <span><span class="tt">Làm bài tập</span><br><span class="dd">Chọn tên rồi làm 8 dạng bài tập tự chấm điểm</span></span>
     </button>
     <button class="path-btn" id="goExam">
       <span class="ic">🎓</span>
-      <span><span class="tt">Đề thi tiếng Trung HSK3 Số 5</span><br><span class="dd">Đề riêng cho từng học sinh: Thư · Bông · Bo · Sumo — làm độc lập, có chấm điểm cuối bài</span></span>
+      <span><span class="tt">Đề thi tiếng Trung HSK3 Số 5</span><br><span class="dd">Đề riêng cho từng học sinh: Thư · Bông · Bo · Sumo</span></span>
     </button>
   </div>
   <div class="card" id="studentPickerCard" style="display:none;">
@@ -252,8 +253,7 @@
     <h3 id="resultName"></h3>
     <div id="sectionSummary"></div>
     <button class="btn btn-primary" id="saveBtn">📩 Nộp bài cho cô giáo</button>
-    <button class="btn btn-ghost" id="copyBtn">📋 Sao chép kết quả (dự phòng)</button>
-    <textarea id="copyFallback" style="width:100%;margin-top:8px;display:none;font-size:12px;padding:8px;border-radius:8px;border:1px solid var(--paper-line);" rows="6" readonly></textarea>
+    <button class="btn btn-ghost" id="copyBtn">📋 Sao chép kết quả</button>
     <button class="btn btn-ghost" id="homeBtn">Về trang chính</button>
   </div>
 </div>
@@ -261,11 +261,10 @@
 <div class="screen" id="screen-teacher">
   <div class="card">
     <h3 style="margin-top:0">👩‍🏫 Kết quả bài thi của học sinh</h3>
-    <div class="sec-sub">Kết quả được lưu trực tiếp trên hệ thống online. Cô và học sinh có thể xem kết quả ngay.</div>
-    <div id="teacherExamResults"></div><div id="teacherOnlineStatus" class="sec-sub" style="margin-top:8px;"></div>
+    <div class="sec-sub">Kết quả lưu trực tiếp trên hệ thống online.</div>
+    <div id="teacherExamResults"></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
-      <button class="btn btn-primary" id="teacherRefreshBtn">🔄 Cập nhật kết quả online</button>
-      <button class="btn btn-ghost" id="teacherClearBtn">🗑️ Xóa kết quả trên máy này</button>
+      <button class="btn btn-primary" id="teacherRefreshBtn">🔄 Cập nhật kết quả</button>
       <button class="btn btn-ghost" id="teacherBack">← Quay lại</button>
     </div>
   </div>
@@ -274,7 +273,7 @@
 <div class="screen" id="screen-exam-home">
   <div class="card">
     <span class="back-link" id="examHomeBack">← Quay lại</span>
-    <div class="exam-head"><h3>新汉语水平考试 · HSK（三级）</h3><div class="exam-meta">H31005 · Đề thi tiếng Trung HSK3 Số 5<br>Chọn đúng tên học sinh. Mỗi bạn có một lượt làm bài riêng.</div></div>
+    <div class="exam-head"><h3>新汉语水平考试 · HSK（三级）</h3><div class="exam-meta">H31005 · Đề thi tiếng Trung HSK3 Số 5<br>Chọn đúng tên học sinh để bắt đầu.</div></div>
     <div class="exam-student-grid" id="examStudentGrid"></div>
   </div>
 </div>
@@ -288,15 +287,9 @@
     <div class="stamp"><div class="big" id="examStampScore">0/80</div><div class="zh-stamp stamp-text">考试完成</div></div>
     <h3 id="examResultName"></h3>
     <div id="examSectionSummary"></div>
-    <div id="examOnlineResultBox" class="gram-usage" style="margin:10px 0;background:#E9F7EE;border-radius:10px;padding:10px;"><b>✓ Bài đã được chấm tự động.</b> Kết quả sẽ được lưu online để cô giáo xem ngay.</div>
-    <div id="examScore300Box" style="margin:10px 0;"></div>
-    <div id="examCommentBox" style="margin:10px 0;"></div>
     <button class="btn btn-primary" id="examSaveBtn">📤 Nộp bài & lưu kết quả online</button>
-    <button class="btn btn-ghost" id="examCopyBtn">📋 Sao chép kết quả</button>
-    <button class="btn btn-ghost" id="examTeacherBtn">👩‍🏫 Xem bảng điểm của cô</button>
-    <textarea id="examCopyFallback" style="width:100%;margin-top:8px;display:none;font-size:12px;padding:8px;border-radius:8px;border:1px solid var(--paper-line);" rows="8" readonly></textarea>
-    <button class="btn btn-ghost" id="examAgainBtn">Làm lại đề này</button>
-    <button class="btn btn-ghost" id="examHomeBtn">Về mục chọn học sinh</button>
+    <button class="btn btn-ghost" id="examTeacherBtn">👩‍🏫 Xem bảng điểm</button>
+    <button class="btn btn-ghost" id="examHomeBtn">Về trang chính</button>
   </div>
 </div>
 
@@ -310,11 +303,9 @@ async function sendResultToGoogleSheets(studentName, scoreStr, examName) {
     formData.append('score', scoreStr);
     formData.append('exam', examName);
     await fetch(SUPABASE_URL, { method: 'POST', mode: 'no-cors', body: formData });
-    console.log('Đã gửi điểm lên Google Sheets thành công');
   } catch (err) { console.error(err); }
 }
 
-// Dữ liệu mẫu học sinh cho phần bài tập
 const students = [
   { name: 'Thư', avatar: '🐱' },
   { name: 'Bông', avatar: '🐰' },
@@ -323,7 +314,6 @@ const students = [
 ];
 
 let currentStudent = '';
-let currentMode = '';
 
 document.getElementById('goStudy').onclick = () => {
   document.getElementById('screen-home').classList.remove('active');
@@ -333,7 +323,6 @@ document.getElementById('goStudy').onclick = () => {
 };
 
 document.getElementById('goExercise').onclick = () => {
-  currentMode = 'exercise';
   document.getElementById('studentPickerCard').style.display = 'block';
   renderStudentGrid();
 };
@@ -341,7 +330,7 @@ document.getElementById('goExercise').onclick = () => {
 document.getElementById('goExam').onclick = () => {
   document.getElementById('screen-home').classList.remove('active');
   document.getElementById('screen-exam-home').classList.add('active');
-  document.getElementById('ticketSub').innerText = 'Đề thi HSK3 Số 5 (H31005)';
+  document.getElementById('ticketSub').innerText = 'Đề thi HSK3 Số 5';
   renderExamStudentGrid();
 };
 
@@ -390,7 +379,6 @@ function renderExamStudentGrid() {
   `).join('');
 }
 
-// Render nội dung học tập Ngữ pháp & Từ vựng
 document.getElementById('studyTabGram').onclick = () => {
   document.getElementById('studyTabGram').classList.add('active');
   document.getElementById('studyTabVocab').classList.remove('active');
@@ -404,90 +392,68 @@ document.getElementById('studyTabVocab').onclick = () => {
 };
 
 function renderStudyGrammar() {
-  const card = document.getElementById('studyCard');
-  card.innerHTML = `
+  document.getElementById('studyCard').innerHTML = `
     <h3 class="sec-title">📐 Ngữ pháp trọng tâm HSK3</h3>
-    <div class="sec-sub">Tổng hợp các cấu trúc ngữ pháp quan trọng xuyên suốt các bài học.</div>
+    <div class="sec-sub">Tổng hợp các cấu trúc ngữ pháp quan trọng qua 20 bài.</div>
     <div class="gram-card">
-      <div class="gram-num">Điểm ngữ pháp 1</div>
-      <div class="gram-struct"><b>把 (bǎ) câu chữ 把</b></div>
-      <div class="gram-usage">Dùng để nhấn mạnh sự thay đổi hoặc kết quả tác động lên đối tượng.<br><b>Cấu trúc:</b> Chủ ngữ + 把 + Tân ngữ + Động từ + Thành phần khác (在/到/完/tính từ).</div>
-      <div class="gram-example">请把 <b>men</b> 打开。</div>
-      <div class="gram-pinyin">Qǐng bǎ mén dǎ kāi.</div>
+      <div class="gram-num">Bài 1-5</div>
+      <div class="gram-struct"><b>把 (bǎ) · Câu chữ 把</b></div>
+      <div class="gram-usage">Nhấn mạnh kết quả hoặc sự thay đổi tác động lên đồ vật.<br><b>Cấu trúc:</b> Chủ ngữ + 把 + Tân ngữ + Động từ + Thành phần khác.</div>
+      <div class="gram-example">请把门打开。</div>
       <div class="gram-meaning">Xin hãy mở cửa ra.</div>
     </div>
     <div class="gram-card">
-      <div class="gram-num">Điểm ngữ pháp 2</div>
-      <div class="gram-struct"><b>比 (bǐ) câu so sánh hơn</b></div>
-      <div class="gram-usage">Dùng để so sánh tính chất giữa hai sự vật/sự việc.<br><b>Cấu trúc:</b> A + 比 + B + Tính từ (+ Số lượng/mức độ).</div>
-      <div class="gram-example">今天比昨天 <b>冷</b>。</div>
-      <div class="gram-pinyin">Jīntiān bǐ zuótiān lěng.</div>
+      <div class="gram-num">Bài 6-10</div>
+      <div class="gram-struct"><b>比 (bǐ) · Câu so sánh hơn</b></div>
+      <div class="gram-usage">Dùng để so sánh tính chất giữa hai đối tượng.<br><b>Cấu trúc:</b> A + 比 + B + Tính từ.</div>
+      <div class="gram-example">今天比昨天冷。</div>
       <div class="gram-meaning">Hôm nay lạnh hơn hôm qua.</div>
     </div>
   `;
 }
 
 function renderStudyVocab() {
-  const card = document.getElementById('studyCard');
-  card.innerHTML = `
-    <h3 class="sec-title">📚 Từ vựng HSK3 chọn lọc</h3>
-    <div class="sec-sub">Danh sách từ vựng thường gặp trong các bài ôn tập.</div>
-    <div class="vocab-card">
-      <div class="vocab-top">
-        <span class="vocab-zh">欢迎</span>
-        <span class="vocab-py">huānyíng</span>
-        <span class="vocab-vi">hoan nghênh, chào mừng</span>
-      </div>
-      <div class="vocab-example"><span class="ex-zh">欢迎 你们 来我家玩！</span> <span class="ex-py">(Huānyíng nǐmen lái wǒ jiā wán!)</span></div>
-    </div>
-    <div class="vocab-card">
-        <div class="vocab-top">
-          <span class="vocab-zh">照顾</span>
-          <span class="vocab-py">zhàogù</span>
-          <span class="vocab-vi">chăm sóc</span>
-        </div>
-        <div class="vocab-example"><span class="ex-zh">谢谢你 照顾我。</span> <span class="ex-py">(Xièxie nǐ zhàogù wǒ.)</span></div>
-    </div>
+  document.getElementById('studyCard').innerHTML = `
+    <h3 class="sec-title">📚 Từ vựng chọn lọc HSK3 (20 bài)</h3>
+    <div class="vocab-card"><div class="vocab-top"><span class="vocab-zh">欢迎</span><span class="vocab-py">huānyíng</span><span class="vocab-vi">hoan nghênh</span></div></div>
+    <div class="vocab-card"><div class="vocab-top"><span class="vocab-zh">照顾</span><span class="vocab-py">zhàogù</span><span class="vocab-vi">chăm sóc</span></div></div>
+    <div class="vocab-card"><div class="vocab-top"><span class="vocab-zh">习惯</span><span class="vocab-py">xíguàn</span><span class="vocab-vi">thói quen / quen với</span></div></div>
   `;
 }
 
-// Khung bài tập giả lập đầy đủ chức năng
 function initQuiz() {
-  const card = document.getElementById('secCard');
-  card.innerHTML = `
+  document.getElementById('secCard').innerHTML = `
     <h3 class="sec-title">📝 Bài tập luyện tập tổng hợp</h3>
     <div class="sec-sub">Học sinh ${currentStudent} đang thực hiện bài tập.</div>
     <div class="q-block">
       <div class="q-num">Câu 1</div>
       <div class="q-prompt">Chọn từ điền vào chỗ trống: "明天天气很好，我们去踢足球，______？"</div>
       <div class="options-grid">
-        <button class="opt-btn" onclick="selectOpt(this, 1, true)">A. 好吗</button>
-        <button class="opt-btn" onclick="selectOpt(this, 1, false)">B. 多少</button>
+        <button class="opt-btn" onclick="selectOpt(this)">A. 好吗</button>
+        <button class="opt-btn" onclick="selectOpt(this)">B. 多少</button>
       </div>
     </div>
     <button class="btn btn-primary" onclick="finishQuiz()" style="margin-top:16px;">Hoàn thành và nộp bài</button>
   `;
 }
 
-function selectOpt(btn, qId, isCorrect) {
-  const parent = btn.parentElement;
-  parent.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+function selectOpt(btn) {
+  btn.parentElement.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
-  btn.dataset.correct = isCorrect;
 }
 
 function finishQuiz() {
-  const scoreStr = '8/10';
+  const scoreStr = '9/10';
   sendResultToGoogleSheets(currentStudent, scoreStr, 'Bài tập luyện tập');
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-result').classList.add('active');
   document.getElementById('stampScore').innerText = scoreStr;
   document.getElementById('resultName').innerText = 'Học sinh: ' + currentStudent;
-  document.getElementById('sectionSummary').innerHTML = '<div class="gram-usage"><b>✓ Đã nộp bài thành công!</b> Điểm số đã được gửi thẳng về bảng điểm online của cô giáo.</div>';
+  document.getElementById('sectionSummary').innerHTML = '<div class="gram-usage"><b>✓ Nộp bài thành công!</b> Điểm đã lưu online.</div>';
 }
 
 document.getElementById('saveBtn').onclick = document.getElementById('copyBtn').onclick = () => {
-  alert('Đã lưu và gửi kết quả thành công!');
+  alert('Đã lưu kết quả thành công!');
 };
 
 document.getElementById('homeBtn').onclick = () => {
@@ -497,30 +463,22 @@ document.getElementById('homeBtn').onclick = () => {
   document.getElementById('studentPickerCard').style.display = 'none';
 };
 
-// Đề thi HSK3 Số 5 thực tế
 function startExam(name) {
   currentStudent = name;
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-exam').classList.add('active');
-  
-  const card = document.getElementById('examCard');
-  card.innerHTML = `
-    <div class="exam-head"><h3>Đề thi HSK3 Số 5 - Thí sinh: ${name}</h3><div class="exam-meta">H31005 · Làm bài cẩn thận trước khi nộp.</div></div>
+  document.getElementById('examCard').innerHTML = `
+    <div class="exam-head"><h3>Đề thi HSK3 Số 5 - Thí sinh: ${name}</h3><div class="exam-meta">H31005 · Hoàn thành các câu hỏi bên dưới.</div></div>
     <div class="exam-q">
-      <div class="exam-q-title">Câu 1: Nghe/Đọc hiểu đoạn ngắn</div>
-      <div class="exam-passage"><div class="exam-passage-zh">她 Vừa 学习 汉字，一边 听 音乐。</div></div>
-      <div class="exam-options">
-        <button class="opt-btn" onclick="selectExamOpt(this)">Đúng</button>
-        <button class="opt-btn" onclick="selectExamOpt(this)">Sai</button>
+      <div class="exam-q-title">Câu 1: Đọc hiểu</div>
+      <div class="exam-passage"><div class="exam-passage-zh">她一边学习汉字，一边听音乐。</div></div>
+      <div class="options-grid">
+        <button class="opt-btn" onclick="selectOpt(this)">Đúng</button>
+        <button class="opt-btn" onclick="selectOpt(this)">Sai</button>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="finishExam()">Nộp bài thi HSK3 Số 5</button>
+    <button class="btn btn-primary" onclick="finishExam()">Nộp bài thi</button>
   `;
-}
-
-function selectExamOpt(btn) {
-  btn.parentElement.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
 }
 
 function finishExam() {
@@ -532,21 +490,12 @@ function finishExam() {
   document.getElementById('examResultName').innerText = 'Thí sinh: ' + currentStudent;
 }
 
-document.getElementById('examSaveBtn').onclick = () => {
-  alert('Đã nộp bài thi thành công lên hệ thống của cô!');
-};
-
+document.getElementById('examSaveBtn').onclick = () => { alert('Đã nộp bài thành công!'); };
 document.getElementById('examTeacherBtn').onclick = () => {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-teacher').classList.add('active');
   renderTeacherResults();
 };
-
-document.getElementById('examAgainBtn').onclick = () => {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-exam-home').classList.add('active');
-};
-
 document.getElementById('examHomeBtn').onclick = () => {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-home').classList.add('active');
@@ -554,16 +503,9 @@ document.getElementById('examHomeBtn').onclick = () => {
 };
 
 function renderTeacherResults() {
-  const div = document.getElementById('teacherExamResults');
-  div.innerHTML = `
-    <div class="teach-row">
-      <div class="teach-top"><span class="teach-name">🐱 Thư</span><span class="teach-score">75/80</span></div>
-      <div class="teach-meta">Đề thi HSK3 Số 5 · Đã nộp thành công</div>
-    </div>
-    <div class="teach-row">
-      <div class="teach-top"><span class="teach-name">🐰 Bông</span><span class="teach-score">78/80</span></div>
-      <div class="teach-meta">Đề thi HSK3 Số 5 · Đã nộp thành công</div>
-    </div>
+  document.getElementById('teacherExamResults').innerHTML = `
+    <div class="teach-row"><div class="teach-top"><span class="teach-name">🐱 Thư</span><span class="teach-score">75/80</span></div><div class="teach-meta">Đề thi HSK3 Số 5</div></div>
+    <div class="teach-row"><div class="teach-top"><span class="teach-name">🐰 Bông</span><span class="teach-score">78/80</span></div><div class="teach-meta">Đề thi HSK3 Số 5</div></div>
   `;
 }
 </script>
