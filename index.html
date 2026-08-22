@@ -1,4 +1,38 @@
-<button class="path-btn" onclick="window.location.href='hsk3-de-5.html'" style="border-color: #c0392b; background: #fff9f8; margin-top: 10px;">
-  <span class="ic">📕</span>
-  <span><span class="tt" style="color: #c0392b;">Đề thi HSK3 — ĐỀ SỐ 5</span><br><span class="dd">Bấm vào đây để làm Đề Số 5</span></span>
-</button>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đề thi HSK3</title>
+<style>
+.card{background:#fff;border-radius:16px;padding:16px;box-shadow:var(--shadow);border:1px solid var(--paper-line);margin-bottom:14px;}
+.path-btn{display:flex;align-items:center;gap:12px;padding:16px;border-radius:14px;border:2px solid var(--paper-line);background:#fffdf7;cursor:pointer;width:100%;text-align:left;margin-bottom:12px;}
+.path-btn .ic{font-size:30px;}
+.path-btn .tt{font-family:'Baloo 2';font-size:16px;color:var(--ink);}
+.path-btn .dd{font-size:12.5px;color:#7a8a89;margin-top:2px;}
+.path-btn.teal{border-color:var(--teal-2);}
+</style>
+</head>
+<body>
+<div class="screen active" id="screen-home">
+  <div class="card">
+    <button class="path-btn teal" id="goStudy">
+      <span class="ic">📘</span>
+      <span><span class="tt">Ôn tập kiến thức</span><br><span class="dd">Xem lại từ vựng &amp; ngữ pháp</span></span>
+    </button>
+    <button class="path-btn" id="goExercise">
+      <span class="ic">📝</span>
+      <span><span class="tt">Làm bài tập</span><br><span class="dd">Chọn tên rồi làm 8 dạng bài tự chấm điểm</span></span>
+    </button>
+    <button class="path-btn" id="goExam">
+      <span class="ic">🎓</span>
+      <span><span class="tt">Đề thi tiếng Trung HSK3 Số 1</span><br><span class="dd">Đề riêng cho từng học sinh</span></span>
+    </button>
+    <button class="path-btn" onclick="window.location.href='hsk3-de-5.html'" style="border-color: #c0392b; background: #fff9f8; margin-top: 10px;">
+      <span class="ic">📕</span>
+      <span><span class="tt" style="color: #c0392b;">Đề thi HSK3 — ĐỀ SỐ 5</span><br><span class="dd">Bấm vào đây để làm Đề Số 5</span></span>
+    </button>
+  </div>
+</div>
+</body>
+</html>
